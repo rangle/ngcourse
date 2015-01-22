@@ -83,14 +83,14 @@ Code written with AngularJS should work on any modern web browser however
 (Firefox, IE9+, Chrome, Safari).
 
 
-## Introduction to JavaScript
+#Part 2: Introduction to JavaScript for Angular
 
 JavaScript is a dynamic programming language that can be leveraged for a number of different
 programming techniques.  JavaScript was originally designed as a client side language that 
 enriches user experience in the browser, but since has evolved into a full-stack language 
 with popular frameworks such as AngularJS on the client side and NodeJS on the server side.
 
-JavaScript Data Types
+##JavaScript Data Types
 
 JavaScipt has five primative data types: string, number, boolean, undefined and null.  JavaScript
 also has a single object data type.  Primitive data types are immutable, meaning that they cannot 
@@ -106,13 +106,14 @@ A variable in an object can be access with either the dot notation
 ```javascript
 person.firstName;
 ```
-or the bracket notation
+As opposed to an object oriented language like Java, bracket notation is not strictly used to 
+access array elements.  It can also be used to access a variable in an object:
 
 ```javascript
 person['firstName'];
 ```
 
-JavaScript Scope
+##JavaScript Scope
 
 In JavaScript, the scope represents the variables, functions and objects you have access to.  
 Note that in JavaScript, both functions and objects can be variables.
@@ -128,13 +129,13 @@ var person = {
 };
 ```
 
-A typically JavaScript application would have both a global scope and function (local) scopes.
+A typical JavaScript application would have both a global scope and function (local) scopes.
 
 Global variables are defined outside of functions and can be accessed throughout the application.
 Function variables can only be accessed within the function.  
 
 
-First Class Functions
+##First Class Functions
 
 In JavaScript, functions are first class citizens.  Functions can be passed into other functions
 as parameters and a function can be returned from another function.
@@ -148,9 +149,13 @@ Consider this example:
 ```
 
 Output:
+
 Number found: 1
+
 Number found: 2
+
 Number found: 3
+
 Number found: 4
 
 Passing functions into other functions is an important concept.  The very same technique is 
@@ -160,7 +165,7 @@ You can think of Function Programming as an assembly line.  Data is passed from 
 function for manipulation until the desired outcome is obtained.
 
 
-Closure
+##Closure
 
 It is possible to have a function within a function.  The inner function would have access to its
 own function scope, the outer function's scope and the global scope.  The inner function is known
@@ -169,25 +174,30 @@ as Closure.
 Closure is an important concept if you are dealing with callbacks.
 
 
-Chaining in JavaScript
+
+
+##Chaining / fluent interfaces in JavaScript
 
 In JavaScript, method chaining is often used:
+
+```javascript
+	myObject.function1().function2().function3();
+```
+
+This allows us to simply code involving multiple method calls to the same object. A slightly
+more complex example:
 
 ```javascript
     $http.get('http://ngcourse.herokuapp.com/api/v1/tasks')
       .success(function(data, status) {
         $log.info(data);
-        vm.tasks = data;
       })
       .error(function(data, status) {
         $log.error(status, data);
       });
 ```
 
-This allows us to simply code involving multiple method calls to the same object. 
-
-
-Asynchronous function calls
+##Asynchronous function calls
 
 JavaScript is a single threaded language.  When invoking computationally expensive operations, the 
 rest of the application, such as the UI, will become unresponsive.  To create responsive applications
@@ -207,7 +217,7 @@ only executed when the a successful response come back from the request.
 Call backs can become very complex quickly.  An alternative to call backs is promises.
 
 
-## Introduction to the Angular Framework
+#Part 3: Introduction to the Angular Framework
 
 Angular is an open source JavaScript application framework backed by Google.  It offers a 
 client side Model-View-Controller (MVC) framework that simplies application development 
@@ -222,7 +232,7 @@ Data Binding
 Designer Friendly
 
 
-Structure of Angular
+##Structure of Angular
 
 Let's start by understanding how Angular is structured.  Each Angular application is a module.
 The module is a container for different parts of your application including views, controllers, 
@@ -252,18 +262,29 @@ Services are singletons that can be dependency injected into controllers, direct
 other services.  The bulk of your application's business logic should belong in Services. 
 Services can be in the form of a Service, a Factory or a Provider.  More on this later.
 
-
-Dependency Injection
+###Dependency Injection
 
 Dependency injection allows you to inject code dependcies into Angular components such as
 Controllers and Services.  This makes your code more modular, reusable and easier to test. 
 For example, you can inject your code into your unit test.
 
 
-Data Binding in Angular
+###Data Binding in Angular
 
 Angular supports two way data binding.  For example, a variable in the controller scope can
 be bound to the view and updates in the model will be reflected in the view and vice versa.
 
+
+Consider this example in Angular 
+
+```javascript
+angular.module('erg')
+ .controller('MainCtrl', function($scope) {
+   $scope.username = 'alice';
+   $scope.numberOfTasks = 0;
+ });
+```
+The Angular module erg, has a controller MainCtrl and $scope is dependency injected into the 
+controller.
 
 
