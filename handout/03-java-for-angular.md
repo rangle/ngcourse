@@ -100,7 +100,7 @@ func();
 ```
 Executing the code above will produce the following:
 
-```javascript
+```
 aVar in Global: Global Scope
 aVar in Func: Function Scope
 aVar in innerFunc: Inner Function Scope
