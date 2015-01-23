@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/css/styles.css"/>
     <link href="http://fonts.googleapis.com/css?family=Dosis:400,600" rel="stylesheet" type="text/css">
   </head>
+<<<<<<< HEAD
   <body ng-app="ngcourse">
     <div>
       <div ng-controller="MainCtrl as main">
@@ -28,6 +29,37 @@
         <div ui-view ng-show="main.user.isAuthenticated"></div>
 
 
+=======
+  <body>
+    <div ng-app="erg">
+      <div ng-controller="MainCtrl as main">
+        <div ng-hide="main.isAuthenticated" ng-controller="LoginFormCtrl as loginForm">
+          Enter username: <input ng-model="loginForm.username"/><br/>
+          Password: <input type="password" ng-model="loginForm.password"/><br/>
+          <div ng-show="main.errorMessage">{{ main.errorMessage}}</div>
+          <button ng-click="main.login(loginForm.username, loginForm.password)">Login</button>
+        </div>
+
+        <div ng-show="main.isAuthenticated">
+          Hello, {{main.username}}!
+        </div>
+
+        <div ng-show="main.isAuthenticated" ng-controller="TaskListCtrl as taskList">
+          {{main.username}}, you've got {{taskList.numberOfTasks}} tasks<br/>
+          <button ng-click="taskList.addTask()">Add task</button>
+
+          <table>
+            <tr>
+              <th>Owner</th>
+              <th>Task description</th>
+            </tr>
+            <tr ng-repeat="task in taskList.tasks">
+              <td>{{task.owner}}</td>
+              <td>{{task.description}}</td>
+            </tr>
+          </table>
+        </div>
+>>>>>>> FETCH_HEAD
       </div>
     </div>
     <script src="/bower_components/lodash/dist/lodash.js"></script>

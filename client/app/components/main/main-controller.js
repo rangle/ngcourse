@@ -5,6 +5,7 @@ angular.module('ngcourse.main-ctrl', [
   'koast'
 ])
 
+<<<<<<< HEAD
 .controller('MainCtrl', function ($log, koast, users) {
   var vm = this;
   vm.user = koast.user;
@@ -27,3 +28,15 @@ angular.module('ngcourse.main-ctrl', [
       .then(null, $log.error);
   };
 });
+=======
+.controller('MainCtrl', function() {
+        var scope = this;
+        scope.isAuthenticated = false;
+
+        scope.login = function(username, password) {
+            scope.isAuthenticated = true;
+            scope.username = username;
+        }
+    });
+
+>>>>>>> FETCH_HEAD

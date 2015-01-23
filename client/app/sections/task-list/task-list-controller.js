@@ -2,6 +2,7 @@
 
 angular.module('ngcourse')
 
+<<<<<<< HEAD
 .controller('TaskListCtrl', function ($log, tasks, users, router) {
   var vm = this;
   vm.tasks = [];
@@ -18,3 +19,24 @@ angular.module('ngcourse')
     })
     .then(null, $log.error);
 });
+=======
+.controller('TaskListCtrl', function($scope, $log) {
+    $log.debug('$scope:', $scope);
+    var scope = this;
+    scope.tasks = [{
+        owner: 'alice',
+        description: 'Build the dog shed.'
+    }, {
+        owner: 'bob',
+        description: 'Get the milk.'
+    }, {
+        owner: 'alice',
+        description: 'Fix the door handle.'
+    }];
+
+    scope.numberOfTasks = scope.tasks.length;
+    scope.addTask = function() {
+        scope.numberOfTasks += 1;
+    };
+});
+>>>>>>> FETCH_HEAD
