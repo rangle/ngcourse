@@ -2,14 +2,14 @@
     {{main.userDisplayName}}, we've got {{taskList.tasks.length}} tasks
     <br/>
 
-   
+
     <div ui-view="actionArea"></div>
     <table>
         <tr>
-            <th>Owner</th>
-            <th>Task description</th>
+            <th><a href="" ng-click="taskList.sort('owner')">Owner</a></th>
+            <th><a href="" ng-click="taskList.sort('description')">Task description</a></th>
         </tr>
-        <tr ng-repeat="task in taskList.tasks">
+        <tr ng-repeat="task in taskList.tasks | orderBy:taskList.sortColumnName:taskList.reverseSort">
             <td>{{taskList.getUserDisplayName(task.owner)}}</td>
             <td>{{task.description}}</td>
             <td><a ng-show="task.can.edit" ui-sref="tasks.details({_id: task._id})">edit</a>
