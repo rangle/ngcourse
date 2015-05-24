@@ -14,7 +14,8 @@
   "dependencies": {
     "angular": "~1.3.10",
     "koast-angular": "~0.2.0",
-    "angular-ui-router": "~0.2.10"
+    "angular-ui-router": "~0.2.10",
+    "system.js": "~0.16.11"
   },
   "devDependencies": {
     "angular-mocks": "~1.3.10",

@@ -22,6 +22,7 @@
     "gulp-ng-annotate": "^0.5.0",
     "gulp-protractor": "0.0.12",
     "gulp-rename": "^1.2.0",
+    "gulp-typescript": "^2.7.5",
     "gulp-uglify": "^1.1.0",
     "gulp-watch": "^4.1.0",
     "karma": "~0.12.31",
@@ -35,6 +36,8 @@
     "rangle-gulp": "^0.1.3",
     "sinon": "~1.12.2",
     "supertest": "^0.15.0",
-    "supertest-as-promised": "^1.0.0"
+    "supertest-as-promised": "^1.0.0",
+    "systemjs-builder": "^0.10.6",
+    "typescript": "1.5.0-beta"
   }
 }

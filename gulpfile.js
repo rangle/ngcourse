@@ -12,6 +12,8 @@ var uglify = require('gulp-uglify');
 var ngAnnotate = require('gulp-ng-annotate');
 var watch = require('gulp-watch');
 var connect = require('gulp-connect');
+var ts = require('gulp-typescript');
+var sourcemaps = require('gulp-sourcemaps');
 
 var karmaFiles = [
   'client/bower_components/angular/angular.js',
@@ -27,6 +29,7 @@ var karmaFiles = [
 ];
 
 var clientFiles = 'client/app/**/*.js';
+var tsClientFiles = 'client/app/**/*.ts';
 
 var skipTestFiles = gulpFilter(function (file) {
   return !/\.test\.js$/.test(file.path) && !/testing/.test(file.path);
@@ -97,13 +100,23 @@ gulp.task('protractor', function() {
 var destinationFolder = 'client/dist';
 
 gulp.task('build', function () {
-  return gulp.src(clientFiles)
+  return gulp.src(tsClientFiles)
     .pipe(skipTestFiles)
-    .pipe(concat('ngcourse.js'))
-    .pipe(gulp.dest(destinationFolder))
-    .pipe(rename('ngcourse.min.js'))
-    .pipe(ngAnnotate())
-    .pipe(uglify())
+    .pipe(sourcemaps.init())
+    .pipe(ts({
+        typescript: require('typescript'),
+        module: 'amd',
+        target: 'ES5',
+        noImplicitAny: false
+      }))
+    // .pipe(concat('ngcourse.js'))
+    // .pipe(gulp.dest(destinationFolder))
+    // .pipe(rename('ngcourse.min.js'))
+    // .pipe(ngAnnotate())
+    // .pipe(uglify())
+    // .pipe(gulp.dest(destinationFolder));
+    // .pipe(concat('tsoutput.js')) // You can use other plugins that also support gulp-sourcemaps 
+    .pipe(sourcemaps.write()) // Now the sourcemaps are added to the .js file 
     .pipe(gulp.dest(destinationFolder));
 });
 

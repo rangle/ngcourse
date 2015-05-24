@@ -1,15 +1,11 @@
-'use strict';
+import {Inject, getServices} from 'utils/di';
 
-angular.module('ngcourse.router', [
-  'ui.router'
-])
+let configureRouter:any = function configureRouter() {
+  let services:any = getServices(configureRouter, arguments);
+  services.$urlRouterProvider.otherwise('/tasks');
+  services.$locationProvider.html5Mode(false);
 
-.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-
-  $urlRouterProvider.otherwise('/tasks');
-  $locationProvider.html5Mode(false);
-
-  $stateProvider
+  services.$stateProvider
     .state('tasks', {
       url: '/tasks',
       views: {
@@ -66,26 +62,35 @@ angular.module('ngcourse.router', [
         }
       }
     });
-})
+}
+configureRouter.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
+export {configureRouter};
 
-.factory('router', function ($log, $state, $stateParams) {
-  var service = {};
+export class RouterService {
+  services: any;
+  $state: any;
+  constructor(
+    @Inject('$log') $log,
+    @Inject('$state') $state,
+    @Inject('$stateParams') $stateParams
+  ) {
+    this.services = getServices(this.constructor, arguments);
+    this.$state = this.services.$state;
+  }
 
-  service.goToAddTask = function () {
-    $state.go('tasks.add');
-  };
+  goToAddTask() {
+    this.$state.go('tasks.add');
+  }
 
-  service.goToTask = function (taskId) {
-    $state.go('tasks.details', {
+  goToTask(taskId) {
+    this.$state.go('tasks.details', {
       _id: taskId
     });
-  };
+  }
 
-  service.goToTaskList = function () {
-    $state.go('tasks', {}, {
+  goToTaskList() {
+    this.$state.go('tasks', {}, {
       reload: true
     });
-  };
-
-  return service;
-});
+  }
+}
