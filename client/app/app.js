@@ -1,3 +1,5 @@
 'use strict';
 
-angular.module('ngcourse', []);
+angular.module('ngcourse', [
+  'ngcourse.tasks'
+]);
