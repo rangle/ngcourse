@@ -2,15 +2,12 @@
 
 angular.module('ngcourse.tasks', [])
 
-.factory('tasks', function($http) {
+.factory('tasks', function($http, server) {
   var service = {};
 
   // Get a list of all tasks from the server
   service.getTasks = function () {
-    return $http.get('http://ngcourse.herokuapp.com/api/v1/tasks')
-      .then(function(response) {
-        return response.data;
-      });
+    return server.get('/api/v1/tasks');
   };
 
   // Get a list of taks for one use
@@ -22,10 +19,6 @@ angular.module('ngcourse.tasks', [])
         });
       });
   };
-
-  function filterTasks() {
-
-  }
 
   return service;
 });
