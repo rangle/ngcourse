@@ -8,14 +8,28 @@ describe('tasks service', function () {
     $provide.service('server', function() {
       var service = {};
       var data = [{
-        owner: 'bob',
+        owner: 'alice',
         description: 'Mow the lawn'
+      }, {
+        owner: 'bob',
+        description: 'Wash the dishes'
+      }, {
+        owner: 'alice',
+        description: 'Fix the bugs'
       }];
 
       service.get = function () {
         return Q.when(data);
         // or try this: Q.reject(new Error('Some Error'));
       };
+
+      service.post = sinon.spy(function (url, _data) {
+        return Q.when({
+          owner: 'Alice',
+          description: 'A newly-created task.'
+        });
+      });
+
       return service;
     });
     // Mock $q.
@@ -25,17 +39,77 @@ describe('tasks service', function () {
   }));
 
   it('should get tasks', function() {
-    // Setup a variable to store injected services.
-    var injected = {};
-    // Run inject() to inject service.
-    inject(function (tasks) {
-      injected.tasks = tasks;
-    });
+    var tasks = getService('tasks');
     // Write a test that returns a promise;
-    return injected.tasks.getTasks()
+    return tasks.getTasks()
     .then(function (tasks) {
-      expect(tasks.length).to.equal(1);
+      expect(tasks.length).to.equal(3);
       // We no longer need to call done()
     });
   });
+
+  it('should create a new task', function() {
+    var tasks = getService('tasks');
+    var server = getService('server');
+    server.post.reset();
+
+    var newTask = {
+      owner: 'Alice',
+      description: 'A newly-created task.'
+    };
+
+    return tasks.createTask(newTask)
+    .then(function (task) {
+      server.post.should.have.been.calledOnce;
+      server.post.should.have.been.calledWith('/api/v1/tasks', newTask);
+    });
+
+  });
+
+  it('should not create a new task if null param supplied', function() {
+    var tasks = getService('tasks');
+    var server = getService('server');
+    server.post.reset();
+
+    var createTaskPromise = tasks.createTask(null)
+    .then(function (task) {
+      server.post.should.have.been.calledOnce;
+    });
+
+    return createTaskPromise.should.be.rejected;
+
+  });
+
+  it('should not create a new task if owner field is missing', function() {
+    var tasks = getService('tasks');
+    var server = getService('server');
+    server.post.reset();
+
+    var createTaskPromise = tasks.createTask({
+      description: 'do something'
+    })
+    .then(function (task) {
+      server.post.should.have.been.calledOnce;
+    });
+
+    return createTaskPromise.should.be.rejected;
+
+  });
+
+  it('should not create a new task if description field is missing', function() {
+    var tasks = getService('tasks');
+    var server = getService('server');
+    server.post.reset();
+
+    var createTaskPromise = tasks.createTask({
+      owner: 'alice'
+    })
+    .then(function (task) {
+      server.post.should.have.been.calledOnce;
+    });
+
+    return createTaskPromise.should.be.rejected;
+
+  });
+
 });
