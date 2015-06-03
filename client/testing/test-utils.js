@@ -1,4 +1,5 @@
 var expect = chai.expect;
+chai.use(chaiAsPromised);
 
 function getService(serviceName) {
   var injectedService;

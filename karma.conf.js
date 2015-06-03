@@ -2,7 +2,7 @@ module.exports = function(config) {
 
   config.set({
     basePath: 'client/',
-    frameworks: ['mocha', 'chai', 'sinon'],
+    frameworks: ['mocha', 'chai-as-promised', 'chai', 'sinon'],
     preprocessors: {
       '**/*.html': 'ng-html2js'
     },
