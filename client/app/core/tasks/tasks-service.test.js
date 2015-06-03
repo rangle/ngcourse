@@ -16,10 +16,10 @@ describe('tasks service', function () {
         description: 'Mow the lawn'
       }];
 
-      service.get = function () {
+      service.get = sinon.spy(function () {
         return Q.when(data);
         // or try this: Q.reject(new Error('Some Error'));
-      };
+      });
       return service;
     });
     // Mock $q.
@@ -29,18 +29,23 @@ describe('tasks service', function () {
   }));
 
   it('should get tasks', function() {
-    // Setup a variable to store injected services.
-    var injected = {};
-    // Run inject() to inject service.
-    inject(function (tasks) {
-      injected.tasks = tasks;
-    });
+    var tasks = getService('tasks');
     // Write a test that returns a promise;
-    return injected.tasks.getTasks()
+    return tasks.getTasks()
       .then(function (tasks) {
         expect(tasks.length).to.equal(1);
         // We no longer need to call done()
       });
   });
+
+  it('should only call server.get once', function() {
+     var tasks = getService('tasks');
+     var server = getService('server');
+     server.get.reset(); // Reset the spy.
+     return tasks.getTasks() // Call getTasks the first time.
+       .then(function () {
+         server.get.should.have.been.calledOnce; // Check the number of calls.
+       });
+   });
 
 });
