@@ -2,18 +2,14 @@
 
 angular.module('ngcourse')
 
-.controller('TaskListCtrl', function($log, tasks) {
+.controller('TaskListCtrl', function($log, tasks, router) {
   var vm = this;
   vm.tasks = [];
   refresh();
 
   vm.numberOfTasks = 0;
   vm.addTask = function() {
-    tasks.createTask({
-      owner: 'alice',
-      description: 'added a new task from this button'
-    })
-    .then(refresh);
+    router.goToAddTask();
   };
 
   vm.getUserDisplayName = function(name) {

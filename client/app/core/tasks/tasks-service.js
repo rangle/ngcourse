@@ -11,7 +11,7 @@ angular.module('ngcourse.tasks', [
     return server.get('/api/v1/tasks')
   };
 
-  service.getMyTasks = function () {
+  service.getMyTasks = function (user) {
     return service.getTasks()
     .then(function(tasks) {
       return filterTasks(tasks, {
@@ -19,6 +19,11 @@ angular.module('ngcourse.tasks', [
       });
     });
   };
+
+  function filterTasks(tasks, criteria) {
+    console.log(criteria)
+    return _.filter(tasks, criteria);
+  }
 
   function validOwner(owner) {
     return users.getUsers()

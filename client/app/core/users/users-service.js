@@ -13,7 +13,15 @@ angular.module('ngcourse.users', ['ngcourse.server'])
   };
 
   service.getUsers = function() {
-    return server.get('/api/v1/users');
+    return server.get('/api/v1/users')
+      .then(function(_usersList) {
+        service.usersList = _usersList;
+        return _usersList;
+      });
+  };
+
+  service.getUser = function(username) {
+    return _.find(service.usersList, { username: username });
   };
 
   return service;

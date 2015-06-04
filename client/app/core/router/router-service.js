@@ -18,12 +18,33 @@ angular.module('ngcourse.router', [
     })
     .state('tasks', {
       url: '/tasks',
-      controller: 'TaskListCtrl as taskList',
-      templateUrl: '/app/sections/task-list/task-list.html'
+      views: {
+        'actionArea@tasks': {
+          template: ' <button ng-click="taskList.addTask()">Add task</button> '
+        },
+        '': {
+          controller: 'TaskListCtrl as taskList',
+          templateUrl: '/app/sections/task-list/task-list.html'
+        }
+      },
     })
-    .state('tasksDetail', {
-      url: '/tasks/{_id}',
-      template: 'task details'
+    .state('tasks.add', {
+      url: '/add',
+      views: {
+        'actionArea@tasks': {
+          controller: 'TaskAddCtrl as taskAdd',
+          templateUrl: '/app/sections/task-add/task-add.html'
+        }
+      }
+    })
+    .state('tasks.details', {
+      url: '/{_id}',
+      views: {
+        'actionArea@tasks': {
+          controller: 'TaskEditCtrl as taskEdit',
+          templateUrl: '/app/sections/task-edit/task-edit.html'
+        }
+      }
     })
     .state('account', {
       url: '/my-account',
@@ -43,6 +64,10 @@ angular.module('ngcourse.router', [
 
   service.goToTask = function(taskId) {
     $state.go('tasks.details', {_id: taskId});
+  };
+
+  service.goToAddTask = function() {
+    $state.go('tasks.add');
   };
 
   service.getTaskId = function() {
