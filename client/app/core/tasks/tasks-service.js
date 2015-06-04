@@ -33,7 +33,7 @@ angular.module('ngcourse.tasks', [
       // check to see if the owner is valid
       return validOwner(task.owner)
       .then(function() {
-        server.post('/api/v1/tasks', task);
+        return server.post('/api/v1/tasks', task);
       });
     } else if (task && !task.owner) {
       // if the description is missing
