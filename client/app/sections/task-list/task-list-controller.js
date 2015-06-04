@@ -16,6 +16,10 @@ angular.module('ngcourse')
     .then(refresh);
   };
 
+  vm.getUserDisplayName = function(name) {
+    return name;
+  };
+
   function refresh() {
     tasks.getTasks()
       .then(function(tasks) {
