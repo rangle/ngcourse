@@ -1,4 +1,22 @@
-<input ng-model="newTask.owner" placeholder="Owner"/> <br/>
-<input ng-model="newTask.description" placeholder="Description"/><br/>
-<button ng-click="taskAdd.save(newTask)">Save</button>
-<button ng-click="taskAdd.cancel()">Cancel</button>
+<form class="add-task-form"
+  name="taskAdd.form"
+  novalidate>
+  <!-- Owner -->
+  <input type="text"
+    ng-model="newTask.owner"
+    ng-minlength="3"
+    placeholder="Owner"
+    required/> <br/>
+  <!-- Description -->
+  <input ng-model="newTask.description"
+    placeholder="Description"
+    ng-minlength="3"
+    ng-maxlength="40"
+    required/><br/>
+
+  <!-- Save Button -->
+  <button ng-disabled="taskAdd.form.$invalid"
+    ng-click="taskAdd.save(newTask)">Save</button>
+  <!-- Cancel Button -->
+  <button ng-click="taskAdd.cancel()">Cancel</button>
+</form>

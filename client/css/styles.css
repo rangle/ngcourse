@@ -102,3 +102,22 @@ table {
   padding: 40px;
   text-align: center;
 }
+
+
+/* Add a new task */
+.add-task-form input {
+  height: 2em;
+  border-radius: 4px;
+  font-size: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 1rem;
+}
+
+.add-task-form input.ng-invalid.ng-touched {
+  background-color: #FDD;
+}
+
+.add-task-form input.ng-valid.ng-touched {
+  background-color: #DFD;
+}
