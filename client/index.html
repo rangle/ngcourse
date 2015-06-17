@@ -10,7 +10,38 @@
   </head>
   <body>
 
-    Hello NgCourse!
+    <div ng-app="ngcourse">
+      <div ng-controller="MainCtrl as main">
+
+        <div ng-hide="main.isAuthenticated" ng-controller="LoginFormCtrl as loginForm">
+          Enter username: <input ng-model="loginForm.username"/><br/>
+          Password: <input type="password" ng-model="loginForm.password"/><br/>
+          <div ng-show="main.errorMessage">{{ main.errorMessage}}</div>
+          <button ng-click="main.login(loginForm.username, loginForm.password)">Login</button>
+        </div>
+
+        <div ng-show="main.isAuthenticated">
+          Hello, {{main.username}}!
+        </div>
+
+        <div ng-show="main.isAuthenticated" ng-controller="TaskListCtrl as taskList">
+          {{main.username}}, you've got {{taskList.numberOfTasks}} tasks<br/>
+          <button ng-click="taskList.addTask()">Add task</button>
+
+          <table>
+            <tr>
+              <th>Owner</th>
+              <th>Task description</th>
+            </tr>
+            <tr ng-repeat="task in taskList.tasks">
+              <td>{{task.owner}}</td>
+              <td>{{task.description}}</td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+    </div>
 
     <script src="/bower_components/lodash/dist/lodash.js"></script>
     <script src="/bower_components/koast-angular/dist/koast.js"></script>
