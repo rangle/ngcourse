@@ -13,12 +13,33 @@ angular.module('ngcourse.router', [
   $stateProvider
     .state('tasks', {
       url: '/tasks',
-      template: '<h1>my tasks</h1>'
+      controller: 'TaskListCtrl as taskList',
+      templateUrl: '/app/sections/task-list/task-list.html'
+    })
+    .state('tasks.details', {
+      url: '/{_id:[A-Za-z0-9-_]{0,}}',
+      views: {
+        'actionArea': {
+          template: 'task details with id'
+        }
+      }
+    })
+    .state('account', {
+      url: '/my-account',
+      template: '<h1>my account</h1>'
     });
 })
 
-.factory('router', function () {
+.factory('router', function ($state, $stateParams) {
   var service = {};
+
+  service.goToTask = function(taskId) {
+    $state.go('tasks.details', {_id: taskId});
+  };
+
+  service.getTaskId = function() {
+    return $stateParams._id;
+  };
 
   return service;
 });
