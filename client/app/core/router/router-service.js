@@ -6,11 +6,16 @@ angular.module('ngcourse.router', [
 
 .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
-  $urlRouterProvider.otherwise('/tasks');
+  $urlRouterProvider.otherwise('/');
 
   $locationProvider.html5Mode(false);
 
   $stateProvider
+    .state('home', {
+      url: '/',
+      controller: 'MainCtrl as main',
+      templateUrl: '/app/components/main/main.html'
+    })
     .state('tasks', {
       url: '/tasks',
       controller: 'TaskListCtrl as taskList',
