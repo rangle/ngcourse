@@ -28,7 +28,7 @@ body {
   background-color: #FDD;
 }
 
-.login input.ng-valid.ng-touched {
+.login input.ng-valid {
   background-color: #DFD;
 }
 
