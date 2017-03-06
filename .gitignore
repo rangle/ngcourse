@@ -1,6 +1,6 @@
 tmp/*
 node_modules/*
 handout/node_modules/*
+handout/handout.html
 private/
-client/bower_components/
 client/dist/
