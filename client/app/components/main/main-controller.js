@@ -1,34 +1,19 @@
 'use strict';
 
-angular.module('ngcourse.main-ctrl', [
-  'ngcourse.users',
-  'koast'
-])
-
-.controller('MainCtrl', function ($log, koast, users) {
-  var vm = this;
-  vm.user = koast.user;
-
-  koast.user.whenAuthenticated()
-    .then(function () {
-      return users.whenReady();
-    })
-    .then(function () {
-      vm.userDisplayName = users.getUserDisplayName(koast.user.data.username);
-    })
-    .then(null, $log.error);
-
-  vm.login = function (form) {
-    koast.user.loginLocal(form)
-      .then(null, showLoginError);
-  };
-  vm.logout = function () {
-    koast.user.logout()
-      .then(null, $log.error);
-  };
-
-  function showLoginError(errorMessage) {
-    vm.errorMessage = 'Login failed.';
-    $log.error(errorMessage);
-  }
-});
+angular.module('ngcourse')
+  .controller('LoginFormCtrl', function () {
+    // Let's do nothing for now.
+  })
+  .controller('MainCtrl', function ($log, users, $state) {
+    var vm = this;
+    vm.login = function (username, password) {
+      users.login(username, password)
+        .then(function () {
+          vm.loginError = null;
+          $state.go('tasks');
+        })
+        .catch(function (err) {
+          vm.loginError = err;
+        })
+    }
+  });

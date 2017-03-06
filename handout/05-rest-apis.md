@@ -21,9 +21,15 @@ comfortable interacting with the REST API using Postman.
 
 If you do not have Postman installed, get it here: <http://www.getpostman.com/>
 
-Our server is setup at http://ngcourse.herokuapp.com/. Here is our `tasks` endpoint:
+Our server is setup at http://localhost:3000. Here is our `tasks` endpoint:
 
-    http://ngcourse.herokuapp.com/api/v1/tasks
+    http://localhost:3000/tasks
+
+  Make sure that the `json-server` is started:
+
+```sh
+  json-server --watch db.json
+```
 
 ## HTTP Methods
 
@@ -32,17 +38,16 @@ An HTTP client interacts with server resources using HTTP methods:
 __GET__ to retrieve some resource (or resources). E.g.:
 
 ```
-  GET http://ngcourse.herokuapp.com/api/v1/tasks/5491e9da995e33455a7307e2
+  GET http://localhost:3000/tasks/1
 ```
 
 The server will respond with the a set of objects representing matching resources:
 
 ```js
 [{
-  "_id":"5491e9da995e33455a7307e2",
-  "owner":"alice",
-  "description":"Create the horse shed.",
-  "__v":0
+  "id":"1",
+  "owner":"bob",
+  "description":"Get the Milk."
 }]
 ```
 
@@ -51,19 +56,19 @@ GET requests often also include a query, encoded as a query string.
 __POST__ to create a new resource.
 
 ```
-  POST http://ngcourse.herokuapp.com/api/v1/tasks/ + data
+  POST http://localhost:3000/tasks/ + data
 ```
 
 __PUT__ to update an existing resources.
 
 ```
-  PUT http://ngcourse.herokuapp.com/api/v1/tasks/5491e9da995e33455a7307e2 + data
+  PUT http://localhost:3000/tasks/1 + data
 ```
 
 __DELETE__ to delete an existing resource.
 
 ```
-  DELETE http://ngcourse.herokuapp.com/api/v1/tasks/5491e9da995e33455a7307e2
+  DELETE http://localhost:3000/tasks/1
 ```
 
 ## Content Type
@@ -142,7 +147,7 @@ loaded from localhost, so under this policy it would only be allowed to send
 HTTP requests to localhost. While this made sense in the past, in most modern
 single-page applications this is impractical. Usually, your app will need to
 talk to a server on some other host. (In our case, it's
-"ngcourse.herokuapp.com.") When you try to do this, however, you may get an
+"localhost:3000.") When you try to do this, however, you may get an
 error that would look roughly like this:
 
 > XMLHttpRequest cannot load [some URL]. Origin [some domain] is not allowed
@@ -192,7 +197,7 @@ Let's start by just getting a list of tasks:
     var vm = this;
     vm.tasks = [];
 
-    $http.get('http://ngcourse.herokuapp.com/api/v1/tasks')
+    $http.get('http://localhost:3000/tasks')
       .success(function(data, status) {
         $log.info(data);
         vm.tasks = data;
@@ -200,6 +205,7 @@ Let's start by just getting a list of tasks:
       .error(function(data, status) {
         $log.error(status, data);
       });
+  });
 ```
 
 Here we are making an HTTP GET request and providing two callbacks: one to
@@ -217,7 +223,7 @@ We'll focus on a somewhat different different approach, though:
     var vm = this;
     vm.tasks = [];
 
-    $http.get('http://ngcourse.herokuapp.com/api/v1/tasks')
+    $http.get('http://localhost:3000/tasks')
       .then(function(response) {
         $log.info(response);
         vm.tasks = response.data;
@@ -225,6 +231,7 @@ We'll focus on a somewhat different different approach, though:
       .then(null, function(error) {
         $log.error(error);
       });
+  });
 ```
 
 This takes advantage of the fact that `$http.get()` returns an object that can

@@ -17,18 +17,9 @@ angular.module('ngcourse.tasks', [])
   var service = {};
 
   service.getTasks = function () {
-    return $http.get('http://ngcourse.herokuapp.com/api/v1/tasks')
+    return $http.get('http://localhost:3000/tasks')
       .then(function(response) {
         return response.data;
-      });
-  };
-
-  service.getMyTasks = function () {
-    return service.getTasks()
-      .then(function(tasks) {
-        return filterTasks(tasks, {
-          owner: user.username
-        });
       });
   };
 
@@ -39,7 +30,7 @@ angular.module('ngcourse.tasks', [])
 Note we have added a new module definition and need to update app.js.
 
 ```javascript
-angular.module('ngcourse', ['ngcourse.tasks', 'ngcourse.server'])
+angular.module('ngcourse', ['ngcourse.tasks'])
 ```
 
 Let's put this in `client/app/core/tasks/tasks-service.js` and add the path
@@ -48,7 +39,7 @@ our `index.html`.
 We can now simplify our controller code:
 
 ```javascript
-  .controller('TaskListCtrl', function($http, $log, tasks) {
+  .controller('TaskListCtrl', function($log, tasks) {
     var vm = this;
     vm.tasks = [];
 
@@ -93,7 +84,7 @@ code from our `tasks` service into a new `server` service (app/core/server/serve
   .factory('server', function($http) {
     var service = {};
 
-    var baseUrl = 'http://ngcourse.herokuapp.com';
+    var baseUrl = 'http://localhost:3000';
 
     service.get = function (path) {
       return $http.get(baseUrl + path)
@@ -109,9 +100,12 @@ code from our `tasks` service into a new `server` service (app/core/server/serve
 While our `tasks` service code gets simplified to:
 
 ```javascript
-  service.getTasks = function () {
-    return server.get('/api/v1/tasks');
-  };
+  .factory('tasks', function (server) {
+    ...
+    service.getTasks = function () {
+      return server.get('/tasks');
+    };
+  });
 ```
 
 And we have a layered service architecture with the tasks service calling the server service.
@@ -123,7 +117,7 @@ But why bother, you might ask? Lets go over some of the benefits.
 We could decompose yet more, though:
 
 ```javascript
-  .constant('API_BASE_URL', 'http://ngcourse.herokuapp.com')
+  .constant('API_BASE_URL', 'http://localhost:3000')
 
   .factory('server', function($http, API_BASE_URL) {
     var service = {};
@@ -150,7 +144,7 @@ let's make `server` its own module:
 ```javascript
   angular.module('ngcourse.server', [])
 
-  .constant('API_BASE_URL', 'http://ngcourse.herokuapp.com')
+  .constant('API_BASE_URL', 'http://localhost:3000')
 
   .factory('server', function($http, API_BASE_URL) {
     var service = {};

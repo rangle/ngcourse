@@ -14,14 +14,12 @@ var watch = require('gulp-watch');
 var connect = require('gulp-connect');
 
 var karmaFiles = [
-  'client/bower_components/angular/angular.js',
-  'client/bower_components/angular-mocks/angular-mocks.js',
-  'client/bower_components/sinon-chai/lib/sinon-chai.js',
-  'client/bower_components/koast-angular/dist/koast.js',
-  'client/bower_components/angular-ui-router/release/angular-ui-router.js',
+  'client/node_modules/angular/angular.js',
+  'client/node_modules/angular-mocks/angular-mocks.js',
+  'client/node_modules/sinon-chai/lib/sinon-chai.js',
+  'client/node_modules/angular-ui-router/release/angular-ui-router.js',
   'client/testing/lib/q.js',
   'client/testing/test-utils.js',
-  'client/bower_components/lodash/dist/lodash.js',
   'client/app/**/*.html',
   'client/app/**/*.js'
 ];
@@ -83,7 +81,7 @@ gulp.task('protractor', function() {
   var files = ['client/testing/scenarios/*.scenario.js'];
   return gulp.src(files)
     .pipe(protractor({
-      configFile: 'client/testing/protractor.conf.js'
+      configFile: 'protractor.conf.js'
     }))
     .on('error', function (err) {
       // Make sure failed tests cause gulp to exit non-zero

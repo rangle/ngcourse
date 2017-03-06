@@ -1,41 +1,31 @@
-'use strict';
+angular.module('ngcourse.users', [])
 
-angular.module('ngcourse.users', [
-  'koast'
-])
+  .factory('users', function (server, $q) {
+    var service = {};
 
-.factory('users', function (koast) {
-  var service = {};
-  var byUserName = {};
-  var usersPromise = koast.user.whenAuthenticated()
-    .then(function () {
-      return koast.queryForResources('users')
-        .then(function (userArray) {
-          service.all = userArray;
-          userArray.forEach(function (user) {
-            if (user.username) {
-              byUserName[user.username] = user;
-            }
-          });
+    service.username = null;
+    service.password = null;
+
+    service.getUser = function (username) {
+      return server.get('/users?username=' + username)
+        .then(function (users) {
+          return users[0]; // json-server always returns an array here
         });
-    });
+    };
 
-  service.whenReady = function () {
-    return usersPromise;
-  };
+    service.login = function (username, password) {
+      return service.getUser(username).then(function (loggedInUser) {
+        if (loggedInUser && loggedInUser.password === password) {
+          service.username = username;
+          service.password = password;
+          return loggedInUser;
+        } else {
+          service.username = null;
+          service.password = null;
+          return $q.reject('Invalid login credentials');
+        }
+      })
+    };
 
-  service.getUserByUsername = function (username) {
-    return byUserName[username];
-  };
-
-  service.getUserDisplayName = function (username) {
-    var user = service.getUserByUsername(username);
-    if (!user) {
-      return '';
-    }
-
-    return user.displayName;
-  };
-
-  return service;
-});
+    return service;
+  });

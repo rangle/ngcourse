@@ -67,21 +67,13 @@ tools that assume it.
 Once you have installed Chrome, please install Angular Batarang, which is an
 Google Chrome extension that makes it easier to debug and inspect Angular
 applications. You can get it from the
-[Google Webstore](https://chrome.google.com/webstore/detail/angularjs-batarang-stable/niopocochgahfkiccpjmmpchncjoapek)
-
-## Postman HTTP Client
-
-Postman is our preferred tool for interacting with a REST API server.
-
-<http://www.getpostman.com/>
-
-Postman is less essential and if you have another HTTP client that you prefer,
-this is fine too.
+[Google Webstore](https://chrome.google.com/webstore/detail/angularjs-batarang/ighdmehidhipcmcojjgiloacoafjmpfk?hl=en)
 
 ## A Code Editor
 
 Any text editor will work. At Rangle.io the most popular editors/IDEs are:
 
+* [VS Code](https://code.visualstudio.com/)
 * [Sublime Text](http://www.sublimetext.com/)
 * [Atom](https://atom.io/)
 * [WebStorm](https://www.jetbrains.com/webstorm/)
@@ -100,24 +92,31 @@ Clone the training repository:
   cd ngcourse
 ```
 
-Install `bower` globally via `npm`:
+Switch to the `2017-03-14-training` branch:
 
 ```sh
-  npm install -g bower
+  git checkout 2017-03-14-training
 ```
 
-Install the project's `bower` components using `bower`:
+`cd` into the client folder and install the project's `npm` dependencies:
 
 ```sh
-  bower install
+  cd client
+  npm install
 ```
 
 *If you get an error while running this command, see the next section.*
 
-Install `http-server` using `npm`:
+Install `gulp`
 
 ```sh
-  npm install -g http-server
+  npm install -g gulp
+```
+
+Install `http-server` and `json-server` using `npm`:
+
+```sh
+  npm install -g http-server json-server
 ```
 
 Fire up the server:
@@ -126,8 +125,14 @@ Fire up the server:
   http-server client/
 ```
 
+Fire up the json-server in another shell/cmd:
+
+```sh
+  json-server --watch db.json
+```
+
 Once you've run those commands, you should be able to access the server at
-<http://localhost:8080>. If you see a login form at that point, then you did
+<http://localhost:8080>. If you see a login form at this point, then you did
 everything correctly and are ready for the course.
 
 ## Proxy Issues
@@ -157,11 +162,4 @@ git config —global http.proxy <proxy server url>
 
 ```sh
 npm config set proxy <proxy server url>
-```
-
-### bower
-
-```sh
-echo '"proxy": "<proxy server url>"' >> .bowerrc
-echo '"https-proxy": "<proxy server url>"' >> .bowerrc
 ```

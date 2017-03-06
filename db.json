@@ -1,0 +1,33 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "ed",
+      "password": "edpassword"
+    },
+    {
+      "id": 2,
+      "username": "bob",
+      "password": "bobpassword"
+    },
+    {
+      "id": 3,
+      "username": "user",
+      "password": "password"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "a031b3dae",
+      "owner": "bob",
+      "description": "Get the Milk",
+      "done": false
+    },
+    {
+      "id": "fd3ac25be",
+      "owner": "ed",
+      "description": "Mow the Lawn",
+      "done": false
+    }
+  ]
+}

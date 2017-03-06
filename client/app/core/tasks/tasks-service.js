@@ -1,39 +1,24 @@
 'use strict';
 
-angular.module('ngcourse.tasks', [
-  'koast'
-])
+angular.module('ngcourse.tasks', ['ngcourse.server'])
+  .factory('tasks', function (server) {
+    var service = {};
 
-.factory('tasks', function (koast) {
-  var service = {};
-
-  function makeAuthenticatedMethod(functionToDelay) {
-    return function () {
-      var myArgs = arguments;
-      return koast.user.whenAuthenticated()
-        .then(function () {
-          return functionToDelay.apply(service, myArgs);
-        });
+    service.getTasks = function () {
+      return server.get('/tasks')
     };
-  }
 
-  service.getTasks = makeAuthenticatedMethod(function () {
-    return koast.queryForResources('tasks');
+    service.updateTask = function (task) {
+      return server.put('/tasks/', task.id, task);
+    }
+
+    service.getTask = function (id) {
+      return server.get('/tasks/' + id);
+    }
+
+    service.createTask = function (task) {
+      return server.post('/tasks', task);
+    }
+
+    return service;
   });
-
-  service.addTask = makeAuthenticatedMethod(function (task) {
-    return koast.createResource('tasks', task);
-  });
-
-  service.updateTask = makeAuthenticatedMethod(function (task) {
-    return task.save();
-  });
-
-  service.getTask = makeAuthenticatedMethod(function (id) {
-    return koast.getResource('tasks', {
-      _id: id
-    });
-  });
-
-  return service;
-});
