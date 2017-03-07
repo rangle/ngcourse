@@ -17,7 +17,6 @@ Let's begin by dissecting the following example of AngularJS code:
   angular.module('ngcourse')
 
   .controller('MainCtrl', function($scope) {
-    $scope.username = 'alice';
     $scope.numberOfTasks = 0;
   });
 ```

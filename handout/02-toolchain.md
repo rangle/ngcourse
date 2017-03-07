@@ -33,23 +33,14 @@ today it is widely used by JavaScript tools, which makes it relevant to
 front-end developers too. A lot of the tools we'll be using in this code
 leverage NodeJS.
 
-## Back-End Code Sharing and Distribution: [npm](https://www.npmjs.com/)
+## Front-End/Back-End Code Sharing and Distribution: [npm](https://www.npmjs.com/)
 
 `npm` is the "node package manager".  It installs with NodeJS, and gives you
 access to a wide variety of 3rd-party JavaScript modules.
 
-It also does dependency management for your back-end application.  You specify
+It also does dependency management for your front-end/back-end application.  You specify
 module dependencies in a file called `package.json`; running `npm install`
-will resolve, download and install your back-end application's dependencies.
-
-## Front-End Code Sharing and Distribution: [bower](https://bower.io)
-
-`bower` is very similar to `npm`, but for the front-end part of your application.
-Any frameworks or 3rd-party libraries that need to be accessible in the user's
-browser will be managed by `bower`.
-
-Similarly to `npm`, `bower` tracks dependencies in a file called `bower.json`.
-Running `bower install` will resolve, download, and install them.
+will resolve, download and install your application's dependencies.
 
 ## Task Automation
 
@@ -92,8 +83,7 @@ Before we proceed, get the code from Git if you have not done so:
 Now, switch to the branch that we'll be using for today's course:
 
 ```bash
-  git branch --track 2015-11-03 origin/2015-11-03
-  git checkout 2015-11-03
+  git checkout cbc-training-base
 ```
 
 This gives us a hollowed-out version of the application we'll be building.
@@ -102,17 +92,22 @@ Install NPM and Bower packages:
 
 ```
   npm install
-  bower install
 ```
 
-Finally, install `http-server` if you have not yet done so:
+Finally, install `http-server` and `json-server` if you have not yet done so:
 
 ```
-  npm install -g http-server
+  npm install -g http-server json-server
 ```
 
 We can run the app with:
 
 ```
   http-server client/
+```
+
+Fire up the json-server in another shell/cmd:
+
+```sh
+  json-server --watch db.json
 ```
