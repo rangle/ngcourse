@@ -4,16 +4,9 @@
   "authors": [
     "Yuri Takhteyev <yuri@rangle.io>"
   ],
-  "license": "private",
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "client/components-bower"
-  ],
+  "license": "MIT",
   "dependencies": {
     "angular": "~1.3.10",
-    "koast-angular": "~0.2.0",
     "angular-ui-router": "~0.2.10"
   },
   "devDependencies": {

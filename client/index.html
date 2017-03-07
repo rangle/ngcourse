@@ -4,60 +4,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/node_modules/angular/angular.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/styles.css"/>
     <link href="http://fonts.googleapis.com/css?family=Dosis:400,600" rel="stylesheet" type="text/css">
   </head>
   <body ng-app="ngcourse">
-    <div>
-      <div ng-controller="MainCtrl as main">
-        <form
-          ng-hide="main.user.isAuthenticated"
-          ng-controller="LoginFormCtrl as loginFormCtrl"
-          class="login"
-          name="loginFormCtrl.form"
-          novalidate>
-
-          Enter username: <input
-            ng-model="loginFormCtrl.username"
-            name="username"
-            ng-pattern="/^[a-z]+$/"
-            required><br>
-
-          Password: <input
-            type="password"
-            ng-model="loginFormCtrl.password"
-            name="password"
-            required><br>
-
-          <div ng-show="main.errorMessage">{{ main.errorMessage}}</div>
-          <button id="login-button"
-            ng-click="main.login(loginFormCtrl)"
-            ng-disabled="loginFormCtrl.form.$invalid">Login</button>
-        </form>
-
-        <div ng-show="main.user.isAuthenticated">
-          Hello, <span>{{main.userDisplayName}}</span>!
-          <button ng-click="main.logout()">Logout</button>
-        </div>
-
-        <hr>
-
-        <div ui-view ng-show="main.user.isAuthenticated"></div>
-
-
-      </div>
-    </div>
-    <script src="/bower_components/lodash/dist/lodash.js"></script>
-    <script src="/bower_components/koast-angular/dist/koast.js"></script>
-    <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <div ui-view></div>
+    <script src="/node_modules/lodash/dist/lodash.js"></script>
+    <script src="/node_modules/koast-angular/dist/koast.js"></script>
+    <script src="/node_modules/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="/app/app.js"></script>
-    <script src="/app/core/users/users-service.js"></script>
     <script src="/app/core/router/router-service.js"></script>
     <script src="/app/core/tasks/tasks-service.js"></script>
     <script src="/app/core/server/server-service.js"></script>
-    <script src="/app/components/main/main-controller.js"></script>
-    <script src="/app/components/login-form/login-form-controller.js"></script>
     <script src="/app/sections/task-list/task-list-controller.js"></script>
     <script src="/app/sections/task-add/task-add-controller.js"></script>
     <script src="/app/sections/task-edit/task-edit-controller.js"></script>

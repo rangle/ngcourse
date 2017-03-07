@@ -1,0 +1,59 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "ed",
+      "password": "$2a$10$t4R1ndYMcEpT7.qZfPb2lO6rQXA0sNKFrm5S6Z0XH9cIptKg68Y3K",
+      "displayName": "Ed Beeblebrox"
+    },
+    {
+      "id": 2,
+      "username": "bob",
+      "password": "$2a$10$t4R1ndYMcEpT7.qZfPb2lO6rQXA0sNKFrm5S6Z0XH9cIptKg68Y3K",
+      "displayName": "Bob Beeblebrox"
+    },
+    {
+      "id": 3,
+      "username": "asd",
+      "password": "asd",
+      "displayName": "ASD Beeblebrox"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1",
+      "owner": "bob",
+      "description": "Get the Milk"
+    },
+    {
+      "id": "2",
+      "owner": "ed",
+      "description": "Get the Cheese"
+    },
+    {
+      "owner": "asd",
+      "description": "asdfgh",
+      "id": "S1GCX8o9e"
+    },
+    {
+      "owner": "ed",
+      "description": "YOLO",
+      "id": "BkM7vH2ce"
+    },
+    {
+      "owner": "ed",
+      "description": "sdfsdfsdf",
+      "id": "rJp0MI2cg"
+    },
+    {
+      "owner": "asdasdasd",
+      "description": "asadasdasd",
+      "id": "SJR1mIhqx"
+    },
+    {
+      "owner": "user",
+      "description": "desc",
+      "id": "SJCMQI2cx"
+    }
+  ]
+}
