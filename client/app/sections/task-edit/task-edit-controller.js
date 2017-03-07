@@ -5,7 +5,7 @@ angular.module('ngcourse')
 .controller('TaskEditCtrl', function ($http, $log, tasks, $stateParams, router) {
   var vm = this;
 
-  tasks.getTask($stateParams._id)
+  tasks.getTask($stateParams.id)
     .then(function (response) {
       vm.task = response;
     })

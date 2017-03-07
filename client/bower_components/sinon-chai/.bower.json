@@ -1,0 +1,14 @@
+{
+  "name": "sinon-chai",
+  "homepage": "https://github.com/domenic/sinon-chai",
+  "version": "2.5.0",
+  "_release": "2.5.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.5.0",
+    "commit": "0c4b229ce05d1930df07b79a2ddf8e8fe9e006c6"
+  },
+  "_source": "https://github.com/domenic/sinon-chai.git",
+  "_target": "~2.5.0",
+  "_originalSource": "sinon-chai"
+}

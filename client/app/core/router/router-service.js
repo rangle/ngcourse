@@ -22,22 +22,21 @@ angular.module('ngcourse.router', [
         }
       }
     })
-    .state('tasks.details', {
-      url: '/{_id:[0-9a-fA-F]{24}}',
-
-      views: {
-        'actionArea@tasks': {
-          controller: 'TaskEditCtrl as taskEdit',
-          templateUrl: '/app/sections/task-edit/task-edit.html'
-        }
-      }
-    })
     .state('tasks.add', {
       url: '/add',
       views: {
         'actionArea@tasks': {
           controller: 'TaskAddCtrl as taskAdd',
           templateUrl: '/app/sections/task-add/task-add.html'
+        }
+      }
+    })
+    .state('tasks.details', {
+      url: '/{id: [0-9a-zA-Z]{9}}',
+      views: {
+        'actionArea@tasks': {
+          controller: 'TaskEditCtrl as taskEdit',
+          templateUrl: '/app/sections/task-edit/task-edit.html'
         }
       }
     })
@@ -77,7 +76,7 @@ angular.module('ngcourse.router', [
 
   service.goToTask = function (taskId) {
     $state.go('tasks.details', {
-      _id: taskId
+      id: taskId
     });
   };
 

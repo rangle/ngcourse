@@ -1,15 +1,13 @@
 'use strict';
 
-angular.module('ngcourse.users', [
-  'koast'
-])
+angular.module('ngcourse.users', ['ngcourse.auth', 'ngcourse.server'])
 
-.factory('users', function (koast) {
+.factory('users', function (auth, server, $http) {
   var service = {};
   var byUserName = {};
-  var usersPromise = koast.user.whenAuthenticated()
+  var usersPromise = auth.whenAuthenticated()
     .then(function () {
-      return koast.queryForResources('users')
+      return server.get('/users')
         .then(function (userArray) {
           service.all = userArray;
           userArray.forEach(function (user) {

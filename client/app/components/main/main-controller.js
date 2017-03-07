@@ -2,28 +2,30 @@
 
 angular.module('ngcourse.main-ctrl', [
   'ngcourse.users',
-  'koast'
+  'ngcourse.auth'
 ])
 
-.controller('MainCtrl', function ($log, koast, users) {
+.controller('MainCtrl', function ($log, auth, users) {
   var vm = this;
-  vm.user = koast.user;
+  vm.auth = auth;
 
-  koast.user.whenAuthenticated()
+  auth.whenAuthenticated()
+
+  auth.whenAuthenticated()
     .then(function () {
       return users.whenReady();
     })
     .then(function () {
-      vm.userDisplayName = users.getUserDisplayName(koast.user.data.username);
+      vm.userDisplayName = users.getUserDisplayName(auth.username);
     })
     .then(null, $log.error);
 
   vm.login = function (form) {
-    koast.user.loginLocal(form)
+    auth.login(form.username, form.password)
       .then(null, showLoginError);
   };
   vm.logout = function () {
-    koast.user.logout()
+    auth.logout()
       .then(null, $log.error);
   };
 

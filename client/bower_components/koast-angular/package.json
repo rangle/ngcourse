@@ -1,0 +1,37 @@
+{
+  "name": "koast-angular",
+  "version": "0.2.0",
+  "description": "This directory contains a client-side bower component for accessing Koast from AngularJS. Strictly speaking, you don't need this to use Koast, but AngularJS services provided by this module should save you some work.",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rangle/koast-angular.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rangle/koast-angular/issues"
+  },
+  "homepage": "https://github.com/rangle/koast-angular",
+  "dependencies": {
+    "gulp": "^3.8.10",
+    "gulp-concat-util": "^0.5.1",
+    "gulp-filter": "^1.0.2",
+    "gulp-ng-annotate": "^0.3.3",
+    "gulp-rename": "^1.2.0",
+    "gulp-replace": "^0.4.0",
+    "gulp-uglify": "^1.0.1",
+    "rangle-gulp": "0.0.7",
+    "semver": "^4.1.0"
+  },
+  "devDependencies": {
+    "gulp-js-beautify": "0.0.2",
+    "gulp-watch": "^1.1.0"
+  },
+  "peerDependencies": {
+    "koast": ">=0.4.5"
+  }
+}

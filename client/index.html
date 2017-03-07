@@ -12,7 +12,7 @@
     <div>
       <div ng-controller="MainCtrl as main">
         <form
-          ng-hide="main.user.isAuthenticated"
+          ng-hide="main.auth.isAuthenticated"
           ng-controller="LoginFormCtrl as loginFormCtrl"
           class="login"
           name="loginFormCtrl.form"
@@ -36,14 +36,14 @@
             ng-disabled="loginFormCtrl.form.$invalid">Login</button>
         </form>
 
-        <div ng-show="main.user.isAuthenticated">
+        <div ng-show="main.auth.isAuthenticated">
           Hello, <span>{{main.userDisplayName}}</span>!
           <button ng-click="main.logout()">Logout</button>
         </div>
 
         <hr>
 
-        <div ui-view ng-show="main.user.isAuthenticated"></div>
+        <div ui-view ng-show="main.auth.isAuthenticated"></div>
 
 
       </div>
@@ -52,6 +52,7 @@
     <script src="/bower_components/koast-angular/dist/koast.js"></script>
     <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="/app/app.js"></script>
+    <script src="/app/core/auth/auth-service.js"></script>
     <script src="/app/core/users/users-service.js"></script>
     <script src="/app/core/router/router-service.js"></script>
     <script src="/app/core/tasks/tasks-service.js"></script>
