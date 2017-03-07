@@ -8,7 +8,7 @@ some of the more interesting things we can do with promises.
 ```javascript
   var taskPromise;
   service.getTasks = function () {
-    taskPromise = taskPromise || server.get('/api/v1/tasks');
+    taskPromise = taskPromise || server.get('/tasks');
     return taskPromise;
   };
 ```
@@ -71,7 +71,7 @@ An alternative is to use the ES6-style constructor:
 ```
 
 This latter approach is less common today but is worth adopting since it is
-closer to the native promise creation in ES6.
+closer to the native `Promise` creation in ES6.
 
 However, beware of a very common JavaScript anti-pattern that involves
 unnecessary creation of new promises. This is often called the "Deferred

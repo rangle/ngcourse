@@ -32,7 +32,7 @@ of:
 
 ## Why Mocha?
 
-While we see this as the best combination of tools, a common alternative is Jasmine, a somewhat older tool that combines features of Mocha, Chai and Sinon.
+While we see this as the best combination of tools, a common alternative is `Jasmine`, a somewhat older tool that combines features of Mocha, Chai and Sinon.
 
 Mocha provides better support for asynchronous testing by adding support for the `done()` function. If you use it, your test doesn't pass until the `done()` function is called. This is a nice to have when testing asynchronous code. Mocha also allows for use of any assertion library that throws exceptions on failure, such as Chai.
 
@@ -44,7 +44,6 @@ module. So, Gulp is the only tool we need to setup globally.
 ```bash
   npm install -g gulp
   npm install
-  bower install
 ```
 
 However, let's install Mocha as well, so that we can try using it manually:
@@ -134,7 +133,7 @@ Chai is an assertion library. It makes it easy to throw errors when things are
 not as we expect them to be. Chai has two styles: "[TDD](http://en.wikipedia.org/wiki/Test-driven_development)" and "[BDD](http://en.wikipedia.org/wiki/Behavior-driven_development)". We'll be
 using the "[BDD](http://en.wikipedia.org/wiki/Behavior-driven_development)" style.
 
-We have already installed Chai when we ran `bower install` and we are already
+We have already installed Chai when we ran `npm install` and we are already
 loading it when we run Karma via `gulp`. So, now we can go straight to using
 it.
 

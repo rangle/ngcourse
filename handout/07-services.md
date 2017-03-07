@@ -17,7 +17,7 @@ angular.module('ngcourse.tasks', [])
   var service = {};
 
   service.getTasks = function () {
-    return $http.get('http://ngcourse.herokuapp.com/api/v1/tasks')
+    return $http.get('http://localhost:3000/tasks')
       .then(function(response) {
         return response.data;
       });
@@ -93,7 +93,7 @@ code from our `tasks` service into a new `server` service (app/core/server/serve
   .factory('server', function($http) {
     var service = {};
 
-    var baseUrl = 'http://ngcourse.herokuapp.com';
+    var baseUrl = 'http://localhost:3000';
 
     service.get = function (path) {
       return $http.get(baseUrl + path)
@@ -110,7 +110,7 @@ While our `tasks` service code gets simplified to:
 
 ```javascript
   service.getTasks = function () {
-    return server.get('/api/v1/tasks');
+    return server.get('/tasks');
   };
 ```
 
@@ -123,7 +123,7 @@ But why bother, you might ask? Lets go over some of the benefits.
 We could decompose yet more, though:
 
 ```javascript
-  .constant('API_BASE_URL', 'http://ngcourse.herokuapp.com')
+  .constant('API_BASE_URL', 'http://localhost:3000')
 
   .factory('server', function($http, API_BASE_URL) {
     var service = {};
@@ -150,7 +150,7 @@ let's make `server` its own module:
 ```javascript
   angular.module('ngcourse.server', [])
 
-  .constant('API_BASE_URL', 'http://ngcourse.herokuapp.com')
+  .constant('API_BASE_URL', 'http://localhost:3000')
 
   .factory('server', function($http, API_BASE_URL) {
     var service = {};

@@ -64,7 +64,7 @@ This also allows us to attach multiple handlers to the same task:
 You might have seen chained promises:
 
 ```javascript
-  $http.get('http://ngcourse.herokuapp.com/api/v1/tasks')
+  $http.get('http://localhost:3000/tasks')
     .then(function(response) {
       return response.data;
     })
@@ -80,7 +80,7 @@ You might have seen chained promises:
 We could also make this more complicated:
 
 ```javascript
-  $http.get('http://ngcourse.herokuapp.com/api/v1/tasks')
+  $http.get('http://localhost:3000/tasks')
     .then(function(response) {
       var tasks = response.data;
       return filterTasks(tasks);
@@ -97,7 +97,7 @@ We could also make this more complicated:
 Or even:
 
 ```javascript
-  $http.get('http://ngcourse.herokuapp.com/api/v1/tasks')
+  $http.get('http://localhost:3000/tasks')
     .then(function(response) {
       return response.data;
     })
@@ -116,7 +116,7 @@ Or even:
 To make sense, let's "unchain" this using variables:
 
 ```javascript
-  var responsePromise = $http.get('http://ngcourse.herokuapp.com/api/v1/tasks');
+  var responsePromise = $http.get('http://localhost:3000/tasks');
   var tasksPromise = responsePromise.then(function(response) {
     return response.data;
   });
@@ -192,7 +192,7 @@ Why won't the second callback ever be called?
 So, catch rejections:
 
 ```javascript
-  $http.get('http://ngcourse.herokuapp.com/api/v1/tasks')
+  $http.get('http://localhost:3000/tasks')
     .then(function(response) {
       return response.data;
     })
@@ -212,7 +212,7 @@ What's the problem with this code?
 So, the following is better.
 
 ```javascript
-  $http.get('http://ngcourse.herokuapp.com/api/v1/tasks')
+  $http.get('http://localhost:3000/tasks')
     .then(function(response) {
       return response.data;
     })
@@ -251,7 +251,7 @@ Let's make sure we understand why.
 There is one (common) case when it's ok to not catch the rejection:
 
 ```javascript
-  return $http.get('http://ngcourse.herokuapp.com/api/v1/tasks')
+  return $http.get('http://localhost:3000/tasks')
     .then(function(response) {
       return response.data;
     });
@@ -279,7 +279,7 @@ A better approach is to break them up into meaningful functions.
 
 ```javascript
   function getTasks() {
-    return $http.get('http://ngcourse.herokuapp.com/api/v1/tasks')
+    return $http.get('http://localhost:3000/tasks')
       .then(function(response) {
         return response.data;
       });

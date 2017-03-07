@@ -27,7 +27,7 @@ angular.module('ngcourse.tasks', ['ngcourse.server'])
   var service = {};
 
   service.getTasks = function () {
-    return server.get('/api/v1/tasks')
+    return server.get('/tasks')
   };
 
   service.getMyTasks = function () {
@@ -92,7 +92,7 @@ And your `client/app/server/server-service.js` file should look like this after 
 ```javascript
 angular.module('ngcourse.server', [])
 
-.constant('API_BASE_URL', 'http://ngcourse.herokuapp.com')
+.constant('API_BASE_URL', 'http://localhost:3000')
 
 .factory('server', function ($http, API_BASE_URL) {
   var service = {};
@@ -123,7 +123,7 @@ angular.module('ngcourse.server', [])
 # Exercise 1: Add the Ability to Create a New Task
 
 Let's follow the steps to create an "add task" feature to your application. To
-do this, we'll be calling `POST /api/v1/tasks` on the server.  We've already
+do this, we'll be calling `POST /tasks` on the server.  We've already
 defined a `post()` function in `server-service.js` that does this.  So, we need
 to:
 
@@ -183,24 +183,20 @@ Tips:
 The server exposes some APIs to manipulate users.  We can use these to supply
 a real implementation for the fake users-service.js we created in exercise 2.
 
-The HTTP call in question is `GET /api/v1/users`.  It will give you a response
+The HTTP call in question is `GET /users`.  It will give you a response
 like this:
 
 ```json
 [
   {
-    "_id": "54c5bf79959f98303cd372e0",
+    "id": "1",
     "username": "ed",
-    "password": "$2a$10$t4R1ndYMcEpT7.qZfPb2lO6rQXA0sNKFrm5S6Z0XH9cIptKg68Y3K",
-    "displayName": "Ed Beeblebrox",
-    "__v": 0
+    "displayName": "Ed Beeblebrox"
   },
   {
-    "_id": "54c5bf79959f98303cd372dd",
+    "id": "2",
     "username": "bob",
-    "password": "$2a$10$t4R1ndYMcEpT7.qZfPb2lO6rQXA0sNKFrm5S6Z0XH9cIptKg68Y3K",
-    "displayName": "Bob Beeblebrox",
-    "__v": 0
+    "displayName": "Bob Beeblebrox"
   },
   ...
 ]
