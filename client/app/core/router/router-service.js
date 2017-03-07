@@ -55,15 +55,6 @@ angular.module('ngcourse.router', [
           template: 'bar'
         }
       }
-    })
-    .state('account', {
-      url: '/my-account',
-      template: 'My account',
-      resolve: {
-        timeout: function ($timeout) {
-          return $timeout(function () {}, 3000);
-        }
-      }
     });
 })
 

@@ -17,7 +17,6 @@ var karmaFiles = [
   'client/node_modules/angular/angular.js',
   'client/node_modules/angular-mocks/angular-mocks.js',
   'client/node_modules/sinon-chai/lib/sinon-chai.js',
-  'client/node_modules/koast-angular/dist/koast.js',
   'client/node_modules/angular-ui-router/release/angular-ui-router.js',
   'client/testing/lib/q.js',
   'client/testing/test-utils.js',

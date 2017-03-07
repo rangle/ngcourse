@@ -1,11 +1,8 @@
 'use strict';
 
 angular.module('ngcourse', [
-  'ngcourse.main-ctrl',
   'ngcourse.tasks',
-  'ngcourse.users',
   'ngcourse.router',
-  'ngcourse.auth',
   'ngcourse-example-directives'
 ])
 
