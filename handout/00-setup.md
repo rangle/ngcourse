@@ -98,7 +98,7 @@ Switch to the `cbc-training` branch:
   git checkout cbc-training
 ```
 
-`cd` into the client folder and install the project's `npm` components using `npm install`:
+`cd` into the client folder and install the project's `npm` dependencies:
 
 ```sh
   cd client
@@ -106,6 +106,12 @@ Switch to the `cbc-training` branch:
 ```
 
 *If you get an error while running this command, see the next section.*
+
+Install `gulp`
+
+```sh
+  npm install -g gulp
+```
 
 Install `http-server` and `json-server` using `npm`:
 

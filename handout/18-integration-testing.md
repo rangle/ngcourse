@@ -26,7 +26,7 @@ Let's put the following test into `server/testing/e2e/api-test.js`:
     var server;
 
     beforeEach(function () {
-      server = request('http://ngcourse.herokuapp.com');
+      server = request('http://localhost:3000');
     });
 
     it('should return a 404 on a wrong endpoint', function (done) {
@@ -72,8 +72,6 @@ wrap supertest in a function that would allow us to return promises to mocha.
 
 If we want to do true end-to-end testing, engaging the client and the server
 at the same time, we can do so using Selenium and Protractor.
-
-We'll be using rangle-gulp (install version 0.0.7) to run protractor, but we'll need to have selenium installed. For that, we'll need to install protractor first.
 
 ```bash
 npm install -g protractor
@@ -136,7 +134,7 @@ Now we can run our test:
 ## Running Protractor Interactively
 
 ```bash
-  node node_modules/rangle-gulp/node_modules/gulp-protractor/node_modules/protractor/bin/elementexplorer.js http://localhost:8080/
+  node node_modules/gulp-protractor/node_modules/protractor/bin/elementexplorer.js http://localhost:8080/
 ```
 
 ## Debugging
