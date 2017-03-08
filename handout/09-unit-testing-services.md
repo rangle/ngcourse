@@ -38,18 +38,11 @@ Mocha provides better support for asynchronous testing by adding support for the
 
 ## Setup
 
-We'll be mostly running our tools via Gulp, replying on our `rangle-gulp`
-module. So, Gulp is the only tool we need to setup globally.
+Gulp and Mocha are the only tools we need to setup globally.
 
 ```bash
-  npm install -g gulp
+  npm install -g gulp mocha
   npm install
-```
-
-However, let's install Mocha as well, so that we can try using it manually:
-
-```bash
-  npm install -g mocha
 ```
 
 Now we can proceed to writing tests.
@@ -98,7 +91,7 @@ Run Karma via Gulp using:
 
 This will run **all** tests under client.
 
-See `gulpfile.js` on how to implement the `karma` task and `rangle-gulp` code
+See `gulpfile.js` on how to implement the `karma` task code
 for more details. Karma configuration is in `client/testing/karma.conf.js`.
 
 ## Skipping Tests
