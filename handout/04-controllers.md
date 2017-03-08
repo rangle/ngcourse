@@ -19,7 +19,7 @@ that it won't do anything at all. Here is what we'll put in our HTML file.
   <html>
     <head>
 
-      <script src="/bower_components/angular/angular.js"></script>
+      <script src="/node_modules/angular/angular.js"></script>
       <link rel="stylesheet" type="text/css" href="/css/styles.css"/>
     </head>
     <body>
@@ -39,7 +39,7 @@ We'll also need a very simple JavaScript file - our "app":
 
 ## A "Classic" Controller
 
-This app doesn't do anything at all. To make it do something remotely interesting we'll need to add a controller. We'll define the controller in a separate javascript file:
+This app doesn't do anything at all. To make it do something remotely interesting we'll need to add a controller. We'll define the controller in a separate javascript file located at `/app/components/main/main-controller.js`:  
 
 ```javascript
   angular.module('ngcourse')
@@ -162,7 +162,7 @@ This:
   });
 ```
 
-ends up being equivalent to this:
+ends up being equivalent to this (*note* the order of the dependencies):
 
 ```javascript
   .controller('MainCtrl', function($log, $scope) {
@@ -218,7 +218,7 @@ We can also control a scope's value from the HTML:
   </div>
 ```
 
-However: "ng-model" is a misnomer. Do not rely on controller's scope as your
+However: `ng-model` is a misnomer. Do not rely on controller's scope as your
 "model"!
 
 ## Adding "Watchers"
@@ -244,7 +244,7 @@ things.
 
 ## Implementing "Login"
 
-Let's add HTML to hide the login form upon login.
+Let's add HTML to hide a login form upon login.
 
 ```html
   <div ng-controller="MainCtrl">
@@ -331,6 +331,14 @@ In `client/app/sections/task-list/task-list-controller.js`:
   });
 ```
 
+Don't forget to insert the script include into your index.html for the new task-list controller. Your script inccludes should look like this:
+
+```javascript
+<script src="/app/app.js"></script>
+<script src="/app/components/main/main-controller.js"></script>
+<script src="/app/sections/task-list/task-list-controller.js"></script>
+```
+
 ## Broadcasting and Catching Events.
 
 Angular provides a system for broadcasting events and listening to them. This
@@ -342,9 +350,11 @@ put this in `main-controller.js`:
 ```javascript
   .controller('MainCtrl', function($scope, $log) {
     $scope.isAuthenticated = false;
+    ...
     $scope.messageChild = function() {
       $scope.$broadcast('hello.child', {fruit: 'peaches'});
     };
+    ...
   });
 ```
 
@@ -352,9 +362,11 @@ We'll subscribe to this message in `task-list-controller.js` using `$scope.$on`.
 
 ```javascript
   .controller('TaskListCtrl', function($scope, $log, $window) {
+    ...
     $scope.$on('hello.child', function(event, payload) {
       $window.alert(payload.fruit);
     });
+    ...
   });
 ```
 
@@ -362,10 +374,41 @@ To communicate *up* the scope, we use `$emit` instead of `$broadcast`.
 
 ```javascript
   .controller('TaskListCtrl', function($scope, $log, $window) {
+    ...
     $scope.messageParent = function() {
       $scope.$emit('hello.parent', {animal: 'turtle'})
     };
+    ...
   });
+```
+
+Let's also the necessary buttons into the index.html. 
+
+- Create a button in the `MainCtrl` div block that will call the `messageChild` function. 
+- Create a button in the `TaskListCtrl` div block that will call the `messageParent` function. 
+- Don't forget to inject `$window` into the controller as well.
+
+Your HTML should now look like this:
+
+```html
+<div ng-controller="MainCtrl">
+  <div ng-hide="isAuthenticated">
+    Enter username: <input ng-model="username" /><br/> Password: <input type="password" ng-model="password" /><br/>
+    <button ng-click="login()">Login</button>
+  </div>
+
+  <div ng-show="isAuthenticated">
+    Hello, {{username}}
+  </div>
+
+  <button ng-click="messageChild()">Message Child</button>
+
+  <div ng-show="isAuthenticated" ng-controller="TaskListCtrl">
+    {{username}}, you've got {{numberOfTasks}} tasks<br/>
+    <button ng-click="addTask()">Add task</button>
+    <button ng-click="messageParent()">Message Parent</button>
+  </div>
+</div>
 ```
 
 ## Using `$apply` and `$timeout`.
@@ -514,8 +557,8 @@ But we'll see a better approach shortly.
 
 ## Iteration
 
-When we have a list of items, we use `ng-repeat` to create identical DOM for
-each item.
+When we have a list of items, we use `ng-repeat` to create identical DOM for each item.
+Let's put the below HTML below the `Add Task` button. 
 
 ```html
   <table>
@@ -530,7 +573,7 @@ each item.
   </table>
 ```
 
-In the controller all we do is set `tasks` to an array:
+and add the following `tasks` array in to the `TaskListCtrl`.
 
 ```javascript
   vm.tasks = [
@@ -548,6 +591,8 @@ In the controller all we do is set `tasks` to an array:
     }
   ];
 ```
+
+Refresh your angular page in the browser, login and you should see the list of tasks. 
 
 ## Next Steps
 

@@ -25,6 +25,12 @@ Our server is setup at http://localhost:3000. Here is our `tasks` endpoint:
 
     http://localhost:3000/tasks
 
+  Make sure that the `json-server` is started:
+
+```sh
+  json-server --watch db.json
+```
+
 ## HTTP Methods
 
 An HTTP client interacts with server resources using HTTP methods:

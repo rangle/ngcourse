@@ -83,7 +83,7 @@ We could also make this more complicated:
   $http.get('http://localhost:3000/tasks')
     .then(function(response) {
       var tasks = response.data;
-      return filterTasks(tasks);
+      return filterTasks(tasks, 1);
     })
     .then(function(tasks) {
       $log.info(tasks);
@@ -92,25 +92,12 @@ We could also make this more complicated:
     .then(null, function(error) {
       $log.error(error);
     });
-```
 
-Or even:
-
-```javascript
-  $http.get('http://localhost:3000/tasks')
-    .then(function(response) {
-      return response.data;
-    })
-    .then(function(tasks) {
-      return filterTasksAsynchronously(tasks);
-    })
-    .then(function(tasks) {
-      $log.info(tasks);
-      vm.tasks = tasks;
-    })
-    .then(null, function(error) {
-      $log.error(error);
-    });
+    filterTasks = function(tasks, id){
+      return tasks.filter(function(task) {
+        task.id === id;
+      })
+    }
 ```
 
 To make sense, let's "unchain" this using variables:
@@ -121,7 +108,7 @@ To make sense, let's "unchain" this using variables:
     return response.data;
   });
   var filteredTasksPromise = tasksPromise.then(function(tasks) {
-    return filterTasksAsynchronously(tasks);
+    return filterTasks(tasks);
   });
   var vmUpdatePromise = filteredTasksPromise.then(function(tasks) {
     $log.info(tasks);
@@ -197,7 +184,7 @@ So, catch rejections:
       return response.data;
     })
     .then(function(tasks) {
-      return filterTasksAsynchronously(tasks);
+      return filterTasks(tasks);
     })
     .then(function(tasks) {
       $log.info(tasks);
@@ -217,7 +204,7 @@ So, the following is better.
       return response.data;
     })
     .then(function(tasks) {
-      return filterTasksAsynchronously(tasks);
+      return filterTasks(tasks);
     })
     .then(function(tasks) {
       $log.info(tasks);
