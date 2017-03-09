@@ -149,7 +149,7 @@ retrieve the ID of the task from the route:
 
 ```js
   service.getTaskId = function() {
-    return $stateParams._id;
+    return $stateParams.id;
   };
 ```
 
@@ -206,7 +206,7 @@ them to the service in our `$get()` method:
       var service = {};
 
       // Add configured section methods to the service
-      _.keys(sectionMethods).forEach(function(section) {
+      Object.keys(sectionMethods).forEach(function(section) {
         service[section] = sectionMethods[section];
       });
 
@@ -264,9 +264,9 @@ service into the beginning of that list (using `unshift`):
       var service = {};
 
       // Add configured section methods to the service
-      _.keys(sectionMethods).forEach(function(section) {
+      Object.keys(sectionMethods).forEach(function(section) {
         service[section] = {};
-        _.keys(sectionMethods[section]).forEach(function(method) {
+        Object.keys(sectionMethods[section]).forEach(function(method) {
           service[section][method] = function() {
             var args = Array.prototype.slice.call(arguments, 0);
             args.unshift(service); // Add service as the first argument.
