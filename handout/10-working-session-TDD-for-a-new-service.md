@@ -140,7 +140,7 @@ to:
   }
   ```
 
-  and cause that task to be 'created' in the mock server. It should also return a promise.
+  and cause that task to be 'posted' to the mock server. It should also return a promise.
 
   Also write some tests for error cases: null parameter, empty `owner` or
   `description` fields, etc. Your `createTask()` function should return a
