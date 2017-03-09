@@ -28,5 +28,42 @@ angular.module('ngcourse.router', [
             }, 3000);
           }
         }
+      })
+      .state('parent', {
+        url: '/parent',
+        views: {
+          'parent': {
+            template: 'parent view <div ui-view="child@parent"></div>'
+          }
+        },
+      })
+      .state('parent.child1', {
+        url: '/child1',
+        views: {
+          'child@parent': {
+            template: 'child 1'
+          }
+        }
+      })
+      .state('parent.child2', {
+        url: '/child2',
+        views: {
+          'child@parent': {
+            template: 'child 2'
+          }
+        }
       });
+  })
+  .factory('router', function ($log, $state, $stateParams) {
+    var service = {};
+
+    service.goToTask = function (taskId) {
+      $state.go('tasks.details', { id: taskId });
+    };
+
+    service.getTaskId = function () {
+      return $stateParams.id;
+    };
+
+    return service;
   });

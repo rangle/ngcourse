@@ -331,7 +331,7 @@ We can also transition using `$state.go()`:
   $state.go('tasks.details', {id: taskId});
 ```
 
-However, let's wrap this in a service:
+However, let's wrap this into our `router-service.js`:
 
 ```javascript
   .factory('router', function($log, $state, $stateParams) {
