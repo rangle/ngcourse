@@ -15,10 +15,9 @@ Make sure your index.html only has ui-view in it. It should look something like 
       <div ui-view></div>
     </div>
     ...
-    <script src="/node_modules/lodash/dist/lodash.js"></script>
 ```
 
-Let's add a basic login UI to this course.  Create a `main.html` at `app/components/main/main.html` with the following markup:
+Let's modify our previous login UI with the below markup and add it into the `main.html` at `app/components/main/main.html`:
 
 ```html
 <div>
@@ -48,9 +47,9 @@ Let's add a basic login UI to this course.  Create a `main.html` at `app/compone
 </div>
 ```
 
-Also, to prepare for sharing information across services, lets update our user service in `client/app/core/users/users-service.js`:
+Also, to prepare for sharing information across services, lets create our user service in `client/app/core/users/users-service.js`:
 
-```
+```javascript
 angular.module('ngcourse.users', [])
 
 .factory('users', function () {
@@ -68,7 +67,7 @@ angular.module('ngcourse.users', [])
 
 and our app.js:
 
-```
+```javascript
 angular.module('ngcourse', [
   'ngcourse.tasks',
   'ngcourse.server',
@@ -82,7 +81,7 @@ angular.module('ngcourse', [
 
 and update our router-service to load the main form. We are adding the .state 'home' and changing .otherwise to '/':
 
-```
+```javascript
     $urlRouterProvider.otherwise('/');
 
     $locationProvider.html5Mode(false);
@@ -104,7 +103,7 @@ with the rest of the file remaining the same.
 
 Finally, let's update our login function in our MainCtrl to transition our state by adding $stage.go('tasks'):
 
-```
+```javascript
     vm.login = function(username, password) {
       vm.isAuthenticated = true;
       vm.username = username;
@@ -113,7 +112,7 @@ Finally, let's update our login function in our MainCtrl to transition our state
     };
 ```
 
-Don't forget to inject $state into the controller.
+Don't forget to inject $state into the controller and to add the `users-service.js` into your index.html.
 
 ## Disabling Login for Missing Data
 
