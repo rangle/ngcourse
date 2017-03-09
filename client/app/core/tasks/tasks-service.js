@@ -17,7 +17,15 @@ angular.module('ngcourse.tasks', ['ngcourse.server'])
         });
     };
 
-    service.createTask = function(task) {
+    service.updateTask = function (task) {
+      return server.put('/tasks/', task.id, task);
+    }
+
+    service.getTask = function (id) {
+      return server.get('/tasks/' + id);
+    }
+
+    service.createTask = function (task) {
       return server.post('/tasks', task);
     }
 
