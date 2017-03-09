@@ -5,9 +5,14 @@ angular.module('ngcourse.users', [])
 
     service.username = null;
     service.password = null;
+
     service.login = function (name, password) {
       service.username = name;
       service.password = password;
+    };
+
+    service.getUserDisplayName = function (username) {
+      return username;
     };
     return service;
   });

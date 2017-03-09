@@ -32,6 +32,14 @@ body {
   background-color: #DFD;
 }
 
+.task input.ng-invalid.ng-touched {
+  background-color: #FDD;
+}
+
+.task input.ng-valid.ng-touched {
+  background-color: #DFD;
+}
+
 button{
   -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
   -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;

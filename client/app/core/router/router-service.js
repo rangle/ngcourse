@@ -19,9 +19,24 @@ angular.module('ngcourse.router', [
         controller: 'TaskListCtrl as taskList',
         templateUrl: '/app/sections/task-list/task-list.html'
       })
-      .state('tasksDetail', {
-        url: '/tasks/{id}',
-        template: 'task details'
+      .state('tasks.details', {
+        url: '/{_id:[0-9a-fA-F]{24}}',
+
+        views: {
+          'actionArea@tasks': {
+            controller: 'TaskEditCtrl as taskEdit',
+            templateUrl: '/app/sections/task-edit/task-edit.html'
+          }
+        }
+      })
+      .state('tasks.add', {
+        url: '/add',
+        views: {
+          'actionArea@tasks': {
+            controller: 'TaskAddCtrl as taskAdd',
+            templateUrl: '/app/sections/task-add/task-add.html'
+          }
+        }
       })
       .state('account', {
         url: '/my-account',
@@ -62,8 +77,18 @@ angular.module('ngcourse.router', [
   .factory('router', function ($log, $state, $stateParams) {
     var service = {};
 
+    service.goToAddTask = function () {
+      $state.go('tasks.add');
+    };
+
     service.goToTask = function (taskId) {
       $state.go('tasks.details', { id: taskId });
+    };
+
+    service.goToTaskList = function () {
+      $state.go('tasks', {}, {
+        reload: true
+      });
     };
 
     service.getTaskId = function () {

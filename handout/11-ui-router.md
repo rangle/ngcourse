@@ -192,7 +192,7 @@ Let's go ahead and create a new file `task-list.html` under `/app/sections/taks`
         <tr ng-repeat="task in taskList.tasks">
             <td>{{taskList.getUserDisplayName(task.owner)}}</td>
             <td>{{task.description}}</td>
-            <td><a ng-show="task.can.edit" ui-sref="tasks.details({id: task.id})">edit</a>
+            <td ng-show="task.can.edit"><a ui-sref="tasks.details({id: task.id})">edit</a>
             </td>
         </tr>
     </table>

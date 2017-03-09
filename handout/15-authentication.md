@@ -438,7 +438,7 @@ This is how the UI decides whether to show the 'edit' link for each task:
 <tr ng-repeat="task in taskList.tasks">
     <td>{{taskList.getUserDisplayName(task.owner)}}</td>
     <td>{{task.description}}</td>
-    <td><a ng-show="task.can.edit" ui-sref="tasks.details({_id: task._id})">edit</a>
+    <td ng-show="task.can.edit"><a ui-sref="tasks.details({id: task.id})">edit</a>
     </td>
 </tr>
 ```
