@@ -3,20 +3,20 @@
     {
       "id": 1,
       "username": "ed",
-      "password": "$2a$10$t4R1ndYMcEpT7.qZfPb2lO6rQXA0sNKFrm5S6Z0XH9cIptKg68Y3K",
+      "password": "edpassword",
       "displayName": "Ed Beeblebrox"
     },
     {
       "id": 2,
       "username": "bob",
-      "password": "$2a$10$t4R1ndYMcEpT7.qZfPb2lO6rQXA0sNKFrm5S6Z0XH9cIptKg68Y3K",
+      "password": "bobpassword",
       "displayName": "Bob Beeblebrox"
     },
     {
       "id": 3,
-      "username": "asd",
-      "password": "asd",
-      "displayName": "ASD Beeblebrox"
+      "username": "user",
+      "password": "password",
+      "displayName": "User 1"
     }
   ],
   "tasks": [
@@ -28,37 +28,7 @@
     {
       "id": "2",
       "owner": "ed",
-      "description": "Get the Cheese"
-    },
-    {
-      "owner": "asd",
-      "description": "asdfgh",
-      "id": "S1GCX8o9e"
-    },
-    {
-      "owner": "ed",
-      "description": "YOLO",
-      "id": "BkM7vH2ce"
-    },
-    {
-      "owner": "ed",
-      "description": "sdfsdfsdf",
-      "id": "rJp0MI2cg"
-    },
-    {
-      "owner": "asdasdasd",
-      "description": "asadasdasd",
-      "id": "SJR1mIhqx"
-    },
-    {
-      "owner": "user",
-      "description": "desc",
-      "id": "SJCMQI2cx"
-    },
-    {
-      "owner": "Alice",
-      "description": "A newly-created task.",
-      "id": "rJcX-eR9x"
+      "description": "Mow the Lawn"
     }
   ]
 }
