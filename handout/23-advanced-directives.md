@@ -137,17 +137,17 @@ parameter to our link function.
 We can use this parameter to add to ngModel's list of `$validators` for any
 HTML element we use this directive on.
 
-Make the following change to your index.html:
+Make the following change to your `client/app/components/main/main.html`:
 
 ```html
 Enter username: <input
   ng-model="loginForm.username"
   name="username"
-  input-white-list white-list="['alice', 'bob', 'dan']"><br>
+  input-white-list white-list="['alice', 'bob', 'dan']"><br />
 
 <span ng-show="loginForm.form.username.$error.whiteList">
   Username must be one of 'alice', 'bob', or 'dan'.
-</span><br>
+</span><br />
 ```
 
 We now have a custom validator that checks that the input matches a white list
