@@ -1,4 +1,4 @@
-# Part 16: Custom Providers
+# Part 15: Custom Providers
 
 In part 11 we used `.config()` methods to configure ui-router. We then defined
 our own `router` service to provide the rest of our application with a more
