@@ -1,5 +1,5 @@
 <div>
-    {{main.userDisplayName}}, we've got {{taskList.tasks.length}} tasks
+    We've got {{taskList.tasks.length}} tasks
     <br/>
    
     <button ui-sref="tasks.add()">Add</button>
@@ -12,7 +12,7 @@
             <th></th>
         </tr>
         <tr ng-repeat="task in taskList.tasks">
-            <td>{{taskList.getUserDisplayName(task.owner)}}</td>
+            <td>{{task.owner}}</td>
             <td>{{task.description}}</td>
             <td><a ui-sref="tasks.details({id: task.id})">edit</a></td>
         </tr>

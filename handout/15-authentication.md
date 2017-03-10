@@ -296,11 +296,6 @@ angular.module('ngcourse.users', [
     return byUserName[username];
   };
 
-  service.getUserDisplayName = function(username) {
-    var user = service.getUserByUsername(username);
-    return user.displayName;
-  };
-
   return service;
 });
 ```

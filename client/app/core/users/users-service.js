@@ -27,8 +27,5 @@ angular.module('ngcourse.users', [])
       })
     };
 
-    service.getUserDisplayName = function (username) {
-      return username;
-    };
     return service;
   });
