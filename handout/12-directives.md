@@ -174,7 +174,7 @@ Create a new file, `app/core/users/user-directive.js`:
 To make the directive do anything remotely interesting we would usually need
 to implement a controller for it:
 
-```javascript  
+```javascript
   .controller('NgcUserDirectiveCtrl', function () {
     var vm = this;
     vm.userDisplayName = 'Some Name';
@@ -194,10 +194,10 @@ to implement a controller for it:
 
   ...
 ```
-A few things are going on here, `controller: 'NgcUserDirectiveCtrl'` provides a 
-reference to the controller function defined on the module. 
+A few things are going on here, `controller: 'NgcUserDirectiveCtrl'` provides a
+reference to the controller function defined on the module.
 
-Then `controllerAs: 'ngcUserCtrl'` gives a name to controller's scope so as to 
+Then `controllerAs: 'ngcUserCtrl'` gives a name to controller's scope so as to
 refer to its properties using this name within the template.
 
 i.e.
@@ -206,8 +206,8 @@ i.e.
   <span>Hello, {{ ngcUserCtrl.userDisplayName }}.</span>
 ```
 
-Finally, the `bindToController: true`, binds the component's properties to the 
-controller rather than the scope. 
+Finally, the `bindToController: true`, binds the component's properties to the
+controller rather than the scope.
 
 
 Note that in the above example the controller is provided by name, but it is also
@@ -286,7 +286,7 @@ we would need to define it this way:
     vm.user = users.getUser(vm.username);
     ...
   })
-  
+
   .directive('ngcUser', function () {
     return {
       ...
@@ -362,7 +362,7 @@ where "user" is a name of a variable on the scope. This is a less isolated
 approach, but the user of the directive is still in control of what parts of
 the scope the directive gets to see.
 
-We'll then need to setup the directive as follows:
+We would setup the directive as follows:
 
 ```javascript
   .controller('NgcUserDirectiveCtrl', function (users) {
@@ -370,7 +370,7 @@ We'll then need to setup the directive as follows:
     vm.user = users.getUser(vm.username);
     ...
   })
-  
+
   .directive('ngcUser', function () {
     return {
       ...
@@ -416,7 +416,7 @@ To achieve this, we would then define the directive as follows:
     vm.fireBan();
     ...
   })
-  
+
   .directive('ngcUser', function () {
     return {
       ...
@@ -486,7 +486,7 @@ We set up the directive as follows:
 ## Directives and Services
 
 If you want to control the directive's behaviour from outside, it is usually
-best to use a service. 
+best to use a service.
 
 ## Directives, Services and DOM
 
@@ -518,5 +518,5 @@ and then offload the actual manipulation to a service dedicated to this:
 In the vast majority of the cases it is recommended to use controllers in your
 directive implementation as opposed to `link()` or `compile()` functions.
 
-Both functions and the rationale behind using them are explored in 
+Both functions and the rationale behind using them are explored in
 Section 23 - Advanced Directives
