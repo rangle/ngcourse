@@ -40,9 +40,16 @@ Let's modify our previous login UI with the below markup and add it into the `ma
       required>
     <br>
 
-    <button
+    <p ng-show="main.loginError" style="color:red">{{main.loginError}}</p>
+
+    <button id="login-button"
       ng-click="main.login(loginForm.username, loginForm.password)"
       ng-disabled="loginForm.form.$invalid">Login</button>
+      
+      <p class="small">
+        Demo accounts:<br/>
+        ed / edpassword <br/> bob / bobpassword<br/>
+      </p>
   </form>
 </div>
 ```
@@ -105,8 +112,9 @@ with the rest of the file remaining the same.
 Finally, let's update our login function in our UserService to return a promise which will either be resolved with a valid user, or rejected with an error message:
 
 ```javascript
+  
   service.login = function (username, password) {
-    return service.getUser().then(function (users) {
+    return service.getUser(username).then(function (loggedInUser) {
       if (loggedInUser && loggedInUser.password === password) {
         service.username = username;
         service.password = password;
@@ -119,6 +127,20 @@ Finally, let's update our login function in our UserService to return a promise 
     })
   };
 ```
+
+Let's also add the getUser function into the UserService. 
+
+```javascript
+
+  service.getUser = function (username) {
+    return server.get('/users?username=' + username)
+      .then(function (users) {
+        return users[0]; // json-server always returns an array here
+      });
+  };
+```
+
+Don't forget to inject `$q` into the UserService.
 
 Next, in our MainCtrl,  we will transition our state by adding $stage.go('tasks') on successful login, otherwise display an error message on failed login:
 
