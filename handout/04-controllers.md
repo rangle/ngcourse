@@ -289,7 +289,7 @@ This controller is getting unwieldy. Let's split it into two. Our HTML:
     </div>
 
     <div ng-show="isAuthenticated">
-      Hello, {{username}}! {{numberOfTasks || 'No tasks'}}
+      Hello, {{username}}
     </div>
 
     <div ng-show="isAuthenticated" ng-controller="TaskListCtrl">
@@ -331,10 +331,6 @@ In `client/app/sections/task-list/task-list-controller.js`:
   });
 ```
 
-## Oddities
-
-Let's observe some inheritance oddities.
-
 ## Broadcasting and Catching Events.
 
 Angular provides a system for broadcasting events and listening to them. This
@@ -374,11 +370,11 @@ To communicate *up* the scope, we use `$emit` instead of `$broadcast`.
 
 ## Using `$apply` and `$timeout`.
 
-We saw this example before when using the console:
+We saw this example before when using the console. 
 
-```javascript
-  $scope.numberOfTasks = 42;  // angular.element($0).scope();
-  $scope.$apply();
+```js
+$scope.numberOfTasks = 42;
+$scope.$apply();
 ```
 
 We had to use `$scope.$apply` to make the update to the scope reflected in the

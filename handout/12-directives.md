@@ -3,8 +3,7 @@
 ## Built in and 3rd Party Directives
 
 Angular's built-in directives are essential to Angular. Also, 3rd party
-directives, such as those provided by Ionic can also provide an excellent
-interface.
+directives, such as those provided by Ionic (an HTML5 framework to build hybrid applications) can also provide an excellent interface.
 
 ```html
   <ion-slide-box on-slide-changed="content.switchSlide(index)">
@@ -15,7 +14,6 @@ interface.
 ```
 
 Ionic provides a great example of how to use directives well. We'll see a few
-more examples from them later.
 
 ## Beware Bad Directives
 

@@ -9,13 +9,13 @@ convenient.
 ## UI-Router
 
 Angular's built in routing solution ('ng-route') has been de facto superseded
-by [ui-router](https://github.com/angular-ui/ui-router/blob/master/README.md). We'll be using that. To install UI-Router with Bower:
+by [ui-router](https://github.com/angular-ui/ui-router/blob/master/README.md). We'll be using that. To install UI-Router with `npm`:
 
 ```bash
-  bower install --save angular-ui-router
+  npm install --save angular-ui-router
 ```
 
-Then add `client/bower_components/angular-ui-router/release/angular-ui-router.js` to your `index.html` if it's not there already.
+Then add `client/node_modules/angular-ui-router/release/angular-ui-router.js` to your `index.html` if it's not there already.
 
 You'll also need to update your `client/app/app.js` to inject the new module into your main module:
 
@@ -69,7 +69,7 @@ Your index.html main section should now look like this:
      <div ui-view></div>
     </div>
 
-    <script src="/bower_components/lodash/dist/lodash.js"></script>
+    <script src="/node_modules/lodash/dist/lodash.js"></script>
 
   ...
 ```
@@ -138,10 +138,6 @@ and parameter data for use in our own controllers.
     .state('tasksDetail', {
       url: '/tasks/details',
       template: 'task details'
-    })
-    .state('account', {
-      url: '/my-account',
-      template: 'my account'
     });
 ```
 
@@ -149,7 +145,7 @@ and parameter data for use in our own controllers.
 
 ```javascript
   .state('tasksDetailById', {
-    url: '/tasks/{_id}',
+    url: '/tasks/{id}',
     template: 'task details with id'
   })
 ```
@@ -158,7 +154,7 @@ This can include regular expressions:
 
 ```javascript
   .state('tasksDetailByRegex', {
-    url: '/tasks/{_id:[A-Za-z0-9-_]{0,}}',
+    url: '/tasks/{id: [0-9a-zA-Z]{9}}',
     template: 'task details with regex'
   })
 ```
@@ -175,7 +171,7 @@ Now we are going to rebuild our view around ui-router. First, let's do tasks.
       templateUrl: '/app/sections/task-list/task-list.html'
     })
     .state('tasksDetail', {
-      url: '/tasks/{_id}',
+      url: '/tasks/{id}',
       template: 'task details'
     })
     .state('account', {
@@ -313,7 +309,7 @@ We can easily transition between states using `ui-sref` directive:
 We can also transition using `$state.go()`:
 
 ```javascript
-  $state.go('tasks.details', {_id: taskId});
+  $state.go('tasks.details', {id: taskId});
 ```
 
 However, let's wrap this in a service:
@@ -323,7 +319,7 @@ However, let's wrap this in a service:
     var service = {};
 
     service.goToTask = function(taskId) {
-      $state.go('tasks.details', {_id: taskId});
+      $state.go('tasks.details', {id: taskId});
     };
 
     return service;
@@ -333,14 +329,14 @@ However, let's wrap this in a service:
 ## Accessing Parameters Using `$stateParams`
 
 ```javascript
-  $stateParams._id
+  $stateParams.id
 ```
 
 But again, let's wrap it:
 
 ```javascript
   service.getTaskId = function() {
-    return $stateParams._id;
+    return $stateParams.id;
   };
 ```
 

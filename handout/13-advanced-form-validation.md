@@ -8,16 +8,17 @@ experience around HTML form validation.  Using the two-way binding features of
 
 Make sure your index.html only has ui-view in it. It should look something like this:
 
-```
+```html
   <body ng-app="ngcourse">
+    ...
     <div>
       <div ui-view></div>
     </div>
-
-    <script src="/bower_components/lodash/dist/lodash.js"></script>
+    ...
+    <script src="/node_modules/lodash/dist/lodash.js"></script>
 ```
 
-Let's revise the basic login UI we built earlier in this course.  Create a `main.html` at `app/components/main/main.html` with the following markup:
+Let's add a basic login UI to this course.  Create a `main.html` at `app/components/main/main.html` with the following markup:
 
 ```html
 <div>
