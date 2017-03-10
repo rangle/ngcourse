@@ -119,7 +119,7 @@ This task injects all client app files and external dependencies and runs the cl
     'client/app/**/*.js'
   ];
 
-  gulp.task('karma', function(){  
+  gulp.task('karma', function(){
     return gulp.src(karmaFiles)
       .pipe(karma({
         configFile: 'client/testing/karma.conf.js',
@@ -211,14 +211,3 @@ tasks. This is quite trivial:
 
 Since this task is the default, it will also be run when we simply type
 `gulp`.
-
-## rangle-gulp
-
-While writing Gulp tasks is pretty simple, it still takes some work. To
-simplify things further, we maintain an NPM package `rangle-gulp` which
-provides a yet simpler interface for defining common tasks:
-
-```js
-  var rg = require('rangle-gulp');
-  gulp.task('lint', rg.jshint({});
-```

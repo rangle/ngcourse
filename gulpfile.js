@@ -20,7 +20,6 @@ var karmaFiles = [
   'client/node_modules/angular-ui-router/release/angular-ui-router.js',
   'client/testing/lib/q.js',
   'client/testing/test-utils.js',
-  'client/node_modules/lodash/dist/lodash.js',
   'client/app/**/*.html',
   'client/app/**/*.js'
 ];
@@ -82,7 +81,7 @@ gulp.task('protractor', function() {
   var files = ['client/testing/scenarios/*.scenario.js'];
   return gulp.src(files)
     .pipe(protractor({
-      configFile: 'client/testing/protractor.conf.js'
+      configFile: 'protractor.conf.js'
     }))
     .on('error', function (err) {
       // Make sure failed tests cause gulp to exit non-zero

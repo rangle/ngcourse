@@ -1,0 +1,31 @@
+<div>
+  <form
+    ng-controller="LoginFormCtrl as loginForm"
+    class="login"
+    name="loginForm.form"
+    novalidate>
+
+    Enter username: <input
+      ng-model="loginForm.username"
+      name="username"
+      required>
+    <br>
+
+    Password: <input
+      type="password"
+      ng-model="loginForm.password"
+      name="password"
+      required>
+    <br>
+
+    <button
+      ng-click="main.login(loginForm.username, loginForm.password)"
+      ng-disabled="loginForm.form.$invalid">Login</button>
+
+      <p>
+        Is form valid: {{ !loginForm.form.$invalid }}<br>
+        Is username valid: {{ !loginForm.form.username.$invalid }}<br>
+        Is password valid: {{ !loginForm.form.password.$invalid }}
+      </p>
+  </form>
+</div>

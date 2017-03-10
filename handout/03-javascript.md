@@ -1,11 +1,11 @@
 # Part 3: JavaScript for AngularJS Developers
 
 JavaScript is an untyped, interpreted programming language that can accommodate
-a variety of  programming paradigms. Among other things, a lot of modern
+a variety of programming paradigms. Among other things, a lot of modern
 JavaScript code heavily leverages functional programming style. The
 combination of weak typing and functional methods can make JavaScript code a
 bit hard to understand for those coming from strongly typed object-oriented
-languages such as  Java.
+languages such as Java.
 
 This module is intended for an audience who is new to JavaScript, or one that
 simply needs a refresher. We will walk through the basic JavaScript

@@ -3,41 +3,33 @@
 var supertest = require('supertest-as-promised');
 var assert = require('chai').assert;
 
-var request = supertest('https://ngcourse.herokuapp.com');
+var request = supertest('http://localhost:3000');
 
 describe('Different things you can do with HTTP', function() {
   var newTaskId;
 
-  it ('Should be able to set and expect headers', function() {
-    return request.get('/api/v1/users')
-      .send('accept', 'application/json')
-      .expect(200)
-      // Actually a bug in ngcourse-api: should give us application/json...
-      .expect('content-type', 'text/plain; charset=utf-8');
-  });
-
   it ('Should be able to expect things in the response payload', function() {
-    return request.get('/api/v1/users')
+    return request.get('/tasks')
       .expect(200)
       .expect(function(response) {
         var body = JSON.parse(response.text);
-        assert(body.length === 5, '5 users returned');
+        assert(body.length === 2, '2 tasks returned');
       });
   });
 
-  it ('Should be able to POST', function() {
+  it ('Should be able to POST a new task', function() {
     var jsonPayload = {
       owner: 'alice',
       description: 'Write some tests!'
     };
 
-    return request.post('/api/v1/tasks')
+    return request.post('/tasks')
       // Smart enough to set Content-type and JSON stringify.
       .send(jsonPayload)
-      .expect(200) // Should be 201 Created?
+      .expect(201) // 201 Created
       .expect(function(response) {
-        var newTask = JSON.parse(response.text)[0];
-        newTaskId = newTask._id;
+        var newTask = response.body;
+        newTaskId = newTask.id;
         assert(jsonPayload.owner === newTask.owner, 'Owner is as expected');
         assert(
           jsonPayload.description === newTask.description,
@@ -45,27 +37,33 @@ describe('Different things you can do with HTTP', function() {
       });
   });
 
+  it ('Can delete a task', function() {
+    // Delete a task.
+    return request.delete('/tasks/' + newTaskId)
+      .expect(200);
+  });
+
   it ('Can test multi-request scenarios', function() {
     var newTaskId;
     var jsonPayload = { owner: 'alice', description: 'Write some tests!' };
 
     // Create a task.
-    return request.post('/api/v1/tasks')
+    return request.post('/tasks')
       .send(jsonPayload)
-      .expect(200)
-      .then(function(createResponse) {
-        newTaskId = JSON.parse(createResponse.text)[0]._id;
+      .expect(201)
+      .then(function(response) {
+        newTaskId = response.body.id;
         assert(!!newTaskId, 'got a new task ID');
 
         // Make sure we can get the newly created task.
-        return request.get('/api/v1/tasks/' + newTaskId).expect(200);
+        return request.get('/tasks/' + newTaskId).expect(200);
       })
-      .then(function(getResponse) {
-        var id = JSON.parse(getResponse.text)[0]._id;
+      .then(function(response) {
+        var id = response.body.id;
         assert(newTaskId === id, 'got the same task ID back again');
 
         // Delete the task when we're done.
-        return request.delete('/api/v1/tasks/' + newTaskId).expect(200);
+        return request.delete('/tasks/' + newTaskId).expect(200);
       });
   });
 });

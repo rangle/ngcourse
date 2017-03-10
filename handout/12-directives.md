@@ -2,18 +2,7 @@
 
 ## Built in and 3rd Party Directives
 
-Angular's built-in directives are essential to Angular. Also, 3rd party
-directives, such as those provided by Ionic (an HTML5 framework to build hybrid applications) can also provide an excellent interface.
-
-```html
-  <ion-slide-box on-slide-changed="content.switchSlide(index)">
-    <ion-slide ng-repeat="item in content.items">
-      {{item.name}}
-    </ion-slide>
-  </ion-slide-box>
-```
-
-Ionic provides a great example of how to use directives well. We'll see a few
+Angular's built-in directives are essential to Angular. We also have the ability to leverage 3rd party directives to add additional behaviour to our code.
 
 ## Beware Bad Directives
 
@@ -31,7 +20,7 @@ Directives may sometimes seem cleaner than "fat" controllers, that is
 controllers that contain a lot of logic. However, you should not be writing
 "fat" controllers in the first place.
 
-Directives may also seem to provide better encapsulation compared compared to
+Directives may also seem to provide better encapsulation compared to
 controllers with nested scopes. However, you should usually avoid controllers
 with nested scopes and instead use "controller as" pattern.
 
@@ -130,8 +119,8 @@ hyphens when inserting them into the HTML. In this case:
   <ngc-user></ngc-user>
 ```
 
-Angular will figure out that "ngc-user" refers to the directive that we
-defined as "ngcUser".
+Angular will figure out that `ngc-user` refers to the directive that we
+defined as `ngcUser`.
 
 ## Transclusion
 
@@ -497,12 +486,7 @@ We set up the directive as follows:
 ## Directives and Services
 
 If you want to control the directive's behaviour from outside, it is usually
-best to use a service. For example, Ionic provides us with a service
-`$ionicSlideBoxDelegate` to control slide boxes.
-
-```javascript
-  $ionicSlideBoxDelegate.$getByHandle('users').update();
-```
+best to use a service. 
 
 ## Directives, Services and DOM
 

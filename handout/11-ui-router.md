@@ -15,7 +15,7 @@ by [ui-router](https://github.com/angular-ui/ui-router/blob/master/README.md). W
   npm install --save angular-ui-router
 ```
 
-Then add `client/node_modules/angular-ui-router/release/angular-ui-router.js` to your `index.html` if it's not there already.
+Then add `<script src="node_modules/angular-ui-router/release/angular-ui-router.js"></script>` to your `index.html` if it's not there already.
 
 You'll also need to update your `client/app/app.js` to inject the new module into your main module:
 
@@ -69,12 +69,10 @@ Your index.html main section should now look like this:
      <div ui-view></div>
     </div>
 
-    <script src="/node_modules/lodash/dist/lodash.js"></script>
-
   ...
 ```
 
-`ui-view` is a directive that `ui-router` users to manage its views. It will be replaced by the template or templateURL that is configured for each ui-router state.
+`ui-view` is a directive that `ui-router` uses to manage its views. It will be replaced by the template or templateURL that is configured for each ui-router state.
 
 All the content we just removed will be added to templates, and `ui-router` will insert them into `ui-view` based on the current application state.
 
@@ -179,8 +177,29 @@ Now we are going to rebuild our view around ui-router. First, let's do tasks.
       template: 'my account'
     });
 ```
+Let's go ahead and create a new file `task-list.html` under `/app/sections/taks` and insert the following HTML. 
 
-If you look at `task-list.html`, you'll see a new controller function in the html, `getUserDisplayName`. Let's add that to `client/app/sections/task-list/task-list-controller.js`.
+```html
+<div>
+    We've got {{taskList.tasks.length}} tasks
+    <br/>
+    <div ui-view="actionArea"></div>
+    <table>
+        <tr>
+            <th>Owner</th>
+            <th>Task description</th>
+        </tr>
+        <tr ng-repeat="task in taskList.tasks">
+            <td>{{taskList.getUserDisplayName(task.owner)}}</td>
+            <td>{{task.description}}</td>
+            <td ng-show="task.can.edit"><a ui-sref="tasks.details({id: task.id})">edit</a>
+            </td>
+        </tr>
+    </table>
+</div>
+```
+
+You'll see a new controller function in the html, `getUserDisplayName`. Let's add that to `client/app/sections/task-list/task-list-controller.js`.
 
 ```
     vm.getUserDisplayName= function(name){
@@ -312,7 +331,7 @@ We can also transition using `$state.go()`:
   $state.go('tasks.details', {id: taskId});
 ```
 
-However, let's wrap this in a service:
+However, let's wrap this into our `router-service.js`:
 
 ```javascript
   .factory('router', function($log, $state, $stateParams) {

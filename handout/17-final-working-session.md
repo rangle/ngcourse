@@ -1,6 +1,6 @@
 # Part 17. Final Working Session.
 
-For the last working session let's branch off `master` and extend the
+For the last working session let's branch off `cbc-training` and extend the
 application with additional features. To do this, do the following:
 
 ```bash
@@ -9,7 +9,7 @@ application with additional features. To do this, do the following:
   git commit -am "my current work"
 
   # get the updated master
-  git checkout master
+  git checkout cbc-training
   git pull
 
   # create your own working branch
@@ -50,13 +50,3 @@ You will also need to use a filter:
 ```
 
 Hint: if your expression ends up being complex, put it in a function.
-
-## Change User's Display Name
-
-Let's allow the user to set their display name.
-
-1. Add a new route for user's profile.
-2. Add a button to edit the profile.
-3. Build a form that allows the user to enter a new display name.
-4. Add a form validator to ensure that display name includes at least 1 character.
-5. Send updates to the server.
