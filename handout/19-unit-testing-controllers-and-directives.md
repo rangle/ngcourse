@@ -260,7 +260,6 @@ var karmaFiles = [
   'client/bower_components/angular-ui-router/release/angular-ui-router.js',
   'client/testing/lib/q.js',
   'client/testing/test-utils.js',
-  'client/bower_components/lodash/dist/lodash.js',
   'client/app/**/*.html',
   'client/app/**/*.js'
 ];
