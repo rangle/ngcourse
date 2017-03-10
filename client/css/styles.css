@@ -32,6 +32,10 @@ body {
   background-color: #DFD;
 }
 
+.small {
+  font-size: 12px;
+}
+
 .task input.ng-invalid.ng-touched {
   background-color: #FDD;
 }

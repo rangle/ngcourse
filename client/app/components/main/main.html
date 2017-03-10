@@ -18,14 +18,20 @@
       required>
     <br>
 
-    <button
+    <p ng-show="main.loginError" style="color:red">{{main.loginError}}</p>
+
+    <button id="login-button"
       ng-click="main.login(loginForm.username, loginForm.password)"
       ng-disabled="loginForm.form.$invalid">Login</button>
-
       <p>
         Is form valid: {{ !loginForm.form.$invalid }}<br>
         Is username valid: {{ !loginForm.form.username.$invalid }}<br>
         Is password valid: {{ !loginForm.form.password.$invalid }}
       </p>
+
+        <p class="small">
+          Demo accounts:<br/>
+          ed / edpassword <br/> bob / bobpassword<br/>
+        </p>
   </form>
 </div>

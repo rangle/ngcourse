@@ -190,21 +190,13 @@ Let's go ahead and create a new file `task-list.html` under `/app/sections/taks`
             <th>Task description</th>
         </tr>
         <tr ng-repeat="task in taskList.tasks">
-            <td>{{taskList.getUserDisplayName(task.owner)}}</td>
+            <td>{{task.owner}}</td>
             <td>{{task.description}}</td>
-            <td ng-show="task.can.edit"><a ui-sref="tasks.details({id: task.id})">edit</a>
+            <td><a ui-sref="tasks.details({id: task.id})">edit</a>
             </td>
         </tr>
     </table>
 </div>
-```
-
-You'll see a new controller function in the html, `getUserDisplayName`. Let's add that to `client/app/sections/task-list/task-list-controller.js`.
-
-```
-    vm.getUserDisplayName= function(name){
-      return name;
-    }
 ```
 
 Now refresh the page and visit /tasks to see your tasks table displayed via ui-router.

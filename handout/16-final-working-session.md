@@ -1,4 +1,4 @@
-# Part 17. Final Working Session.
+# Part 16. Final Working Session.
 
 For the last working session let's branch off `cbc-training` and extend the
 application with additional features. To do this, do the following:

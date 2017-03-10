@@ -23,15 +23,6 @@ angular.module('ngcourse.tasks', [])
       });
   };
 
-  service.getMyTasks = function () {
-    return service.getTasks()
-      .then(function(tasks) {
-        return filterTasks(tasks, {
-          owner: user.username
-        });
-      });
-  };
-
   return service;
 });
 ```
