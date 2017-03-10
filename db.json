@@ -3,20 +3,17 @@
     {
       "id": 1,
       "username": "ed",
-      "password": "edpassword",
-      "displayName": "Ed Beeblebrox"
+      "password": "edpassword"
     },
     {
       "id": 2,
       "username": "bob",
-      "password": "bobpassword",
-      "displayName": "Bob Beeblebrox"
+      "password": "bobpassword"
     },
     {
       "id": 3,
       "username": "user",
-      "password": "password",
-      "displayName": "User 1"
+      "password": "password"
     }
   ],
   "tasks": [

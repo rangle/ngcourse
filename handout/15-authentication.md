@@ -108,7 +108,7 @@ malicious user or script do?
 ### Server-Side: the 'Bad Cop'
 
 It is always necessary to enforce authentication and authorization rules on the
-server side.  
+server side.
 
 Therefore it falls to the server to be the enforcer.  If a client makes an
 unauthorized request, the server must return an error instead of processing it.
@@ -260,9 +260,6 @@ We can add header type information to index.html to have it show on all pages.
 
       <div ui-view></div>
     </div>
-
-    <script src="/bower_components/lodash/dist/lodash.js"></script>
-    ...
 ```
 
 ### Users Service

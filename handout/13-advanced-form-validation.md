@@ -53,14 +53,15 @@ Also, to prepare for sharing information across services, lets create our user s
 angular.module('ngcourse.users', [])
 
 .factory('users', function () {
-  var service={};
+  var service = {};
 
-  service.username= null;
-  service.password= null;
-  service.login= function(name, password){
-    service.username=name;
-    service.password=password;
+  service.username = null;
+  service.password = null;
+  service.login = function(username, password){
+    service.username = username;
+    service.password = password;
   };
+
   return service;
 });
 ```
@@ -101,15 +102,37 @@ and update our router-service to load the main form. We are adding the .state 'h
 
 with the rest of the file remaining the same.
 
-Finally, let's update our login function in our MainCtrl to transition our state by adding $stage.go('tasks'):
+Finally, let's update our login function in our UserService to return a promise which will either be resolved with a valid user, or rejected with an error message:
 
 ```javascript
-    vm.login = function(username, password) {
-      vm.isAuthenticated = true;
-      vm.username = username;
-      vm.password=password;
-      $state.go('tasks');
-    };
+  service.login = function (username, password) {
+    return service.getUser().then(function (users) {
+      if (loggedInUser && loggedInUser.password === password) {
+        service.username = username;
+        service.password = password;
+        return loggedInUser;
+      } else {
+        service.username = null;
+        service.password = null;
+        return $q.reject('Invalid login credentials');
+      }
+    })
+  };
+```
+
+Next, in our MainCtrl,  we will transition our state by adding $stage.go('tasks') on successful login, otherwise display an error message on failed login:
+
+```javascript
+  vm.login = function (username, password) {
+    user.login(username, password)
+      .then(function () {
+        vm.loginError = null;
+        $state.go('tasks');
+      })
+      .catch(function (err) {
+        vm.loginError = err;
+      })
+  }
 ```
 
 Don't forget to inject $state into the controller and to add the `users-service.js` into your index.html.
