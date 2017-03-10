@@ -23,12 +23,14 @@
     {
       "id": "1",
       "owner": "bob",
-      "description": "Get the Milk"
+      "description": "Get the Milk",
+      "done": false
     },
     {
       "id": "2",
       "owner": "ed",
-      "description": "Mow the Lawn"
+      "description": "Mow the Lawn",
+      "done": false
     }
   ]
 }
