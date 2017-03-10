@@ -30,15 +30,6 @@ angular.module('ngcourse.tasks', ['ngcourse.server'])
     return server.get('/tasks')
   };
 
-  service.getMyTasks = function () {
-    return service.getTasks()
-    .then(function(tasks) {
-      return filterTasks(tasks, {
-        owner: user.username
-      });
-    });
-  };
-
   return service;
 });
 ```

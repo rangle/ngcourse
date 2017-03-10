@@ -7,8 +7,6 @@ angular.module('ngcourse')
     vm.tasks = [];
     vm.addTask = router.goToAddTask;
 
-    vm.getUserDisplayName = users.getUserDisplayName;
-
     tasks.getTasks()
       .then(function (tasks) {
         vm.tasks = tasks;
