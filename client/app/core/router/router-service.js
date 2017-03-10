@@ -20,8 +20,7 @@ angular.module('ngcourse.router', [
         templateUrl: '/app/sections/task-list/task-list.html'
       })
       .state('tasks.details', {
-        url: '/{_id:[0-9a-fA-F]{24}}',
-
+        url: '/{id:[0-9a-fA-F]{9}}',
         views: {
           'actionArea@tasks': {
             controller: 'TaskEditCtrl as taskEdit',
