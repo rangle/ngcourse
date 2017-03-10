@@ -1,4 +1,4 @@
-# Part 20: Advanced Directives
+# Part 19: Advanced Directives
 
 ## Using the Link Function
 

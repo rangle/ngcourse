@@ -1,4 +1,4 @@
-# Part 19: Unit Testing Controllers and Directives
+# Part 18: Unit Testing Controllers and Directives
 
 In part 9, we talked about unit testing services.  Most of your code should live
 in services, in part because they are easy to unit test.
