@@ -132,7 +132,7 @@ Fire up the json-server in another shell/cmd:
 ```
 
 Once you've run those commands, you should be able to access the server at
-<http://localhost:8080>. If you see a list of tasks at that point, then you did
+<http://localhost:8080>. If you see a login form at this point, then you did
 everything correctly and are ready for the course.
 
 ## Proxy Issues

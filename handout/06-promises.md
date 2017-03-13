@@ -97,7 +97,7 @@ We could also make this more complicated:
       return tasks.filter(function(task) {
         task.id === id;
       })
-    }
+    };
 ```
 
 To make sense, let's "unchain" this using variables:
