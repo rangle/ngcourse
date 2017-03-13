@@ -83,7 +83,7 @@ Before we proceed, get the code from Git if you have not done so:
 Now, switch to the branch that we'll be using for today's course:
 
 ```bash
-  git checkout cbc-training-base
+  git checkout cbc-training
 ```
 
 This gives us a hollowed-out version of the application we'll be building.

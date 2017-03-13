@@ -70,8 +70,8 @@ An alternative is to use the ES6-style constructor:
   }
 ```
 
-This latter approach is less common today but is worth adopting since it is
-closer to the native `Promise` creation in ES6.
+This latter is the recommended approach since it is closer to the native
+`Promise` creation in ES6.
 
 However, beware of a very common JavaScript anti-pattern that involves
 unnecessary creation of new promises. This is often called the "Deferred
@@ -79,18 +79,10 @@ Anti-pattern", but it applies equally to the ES6-style promise constructor. In
 most cases, you do not need to create new promises from scratch and resolve
 them yourself. If you got a promise from another function, you should use that
 promise's `.then()` method to create further promises. It is almost never a
-good idea to create a manually resolve a promise inside of a promise callback.
+good idea to create and manually resolve a promise inside of a promise callback.
 
 Converting a callback-style function to one returning a promise is about the
-only valid case for using a promise constructor. Even in this case, however,
-the result can be better achieved using a dedicated conversion function. For
-example, if you have a function that relies on Node-style callbacks as in the
-example above above, you can convert it using
-[angular-promisify](https://github.com/rangle/angular-promisify) like so:
-
-```js
-  var getFooPromise = denodeify(getFooWithCallbacks);
-```
+only valid case for using a promise constructor.
 
 While manually resolving promises is rarely a good idea, `$q` offers two
 promise-creation methods that often come in very handy. You can use
@@ -146,7 +138,7 @@ number of other AngularJS functions.
 
 ## Promises vs Events
 
-While promises are nearly always better than Node- style callbacks, the choice
+While promises are nearly always better than Node-style callbacks, the choice
 of when to use promises vs a publish-subscribe approach (e.g., via
 `$broadcast`) is a bit more complex. Here are the key differences between the
 two approaches:
@@ -156,10 +148,6 @@ two approaches:
 | Things that happen ONCE            | Things that happen MANY TIMES      |
 | Same treatment for past and future | Only care about the future*        |
 | Easily matched with requests       | Detached from requests             |
-
-Promises are often the best approach for handling responses to an explicit
-request, such as an HTTP call. Publish-subscribe often works better for
-handling actions initiated by the user (except with modals).
 
 ## Next Steps
 
