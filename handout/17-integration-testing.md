@@ -1,4 +1,4 @@
-# Part 18: Integration Testing
+# Part 17: Integration Testing
 
 Integration tests verify that multiple components work together in
 combination. This could involve just a handful of components or a lot of
@@ -13,26 +13,24 @@ is that the backend can be simplified to only provide a data API. This allows
 running integration tests of the backend by driving the API via HTTP. This can
 be done using Mocha together with a libraries such as `supertest`.
 
-Let's put the following test into `server/testing/e2e/api-test.js`:
+Let's put the following test into `server/testing/api-test.spec.js`:
 
 ```javascript
   'use strict';
 
   var request = require('supertest');
-  var expect = require('chai').expect;
-  var Q = require('q');
 
   describe('api', function () {
     var server;
 
     beforeEach(function () {
-      server = request('http://ngcourse.herokuapp.com');
+      server = request('http://localhost:3000');
     });
 
     it('should return a 404 on a wrong endpoint', function (done) {
       return server
         .get('/api/foo')
-        .expect(404)
+        .expect({})
         .end(done);
     });
 
@@ -46,18 +44,18 @@ We can now run the test using:
 ```
 
 This test makes a call to a non-existent endpoint and verifies that it gets
-back a 404.
+back an empty object. In this case, `json-server` will always return an empty object for unconfigured endpoints, in the real world we might epxect something back like a `404`.
 
 We can now have the test make a call to a real endpoint and verify that it
 gets the expected results:
 
 ```javascript
-  it('should get 3 tasks', function (done) {
+  it('should get 2 tasks', function (done) {
     return server
       .get('/api/v1/tasks')
       .expect(200)
       .end(function(err, res) {
-        var body = JSON.parse(res.text);
+        var body = res.body;
         expect(body.length).to.equal(2);
         done(err);
       });
@@ -65,15 +63,12 @@ gets the expected results:
 ```
 
 Note that that we are using "done" to allow for asynchronous tests, since
-`supertest` relies on callbacks. However, with a little bit of work we can
-wrap supertest in a function that would allow us to return promises to mocha.
+`supertest` relies on callbacks. However, there is another package `supertest-as-promised` which we can use to handle promises directly and write our tests asynchronously.
 
 ## Protractor and Selenium
 
 If we want to do true end-to-end testing, engaging the client and the server
 at the same time, we can do so using Selenium and Protractor.
-
-We'll be using rangle-gulp (install version 0.0.7) to run protractor, but we'll need to have selenium installed. For that, we'll need to install protractor first.
 
 ```bash
 npm install -g protractor
@@ -96,10 +91,10 @@ describe('localhost', function() {
   it('should allow login', function() {
     var username;
     browser.get('http://localhost:8080/');
-    element(by.model('loginFormCtrl.username')).sendKeys('alice');
-    element(by.model('loginFormCtrl.password')).sendKeys('x');
+    element(by.model('loginForm.username')).sendKeys('alice');
+    element(by.model('loginForm.password')).sendKeys('x');
     element(by.id('login-button')).click();
-    username = element(by.binding('main.userDisplayName')).getText();
+    username = element(by.binding('main.username')).getText();
     expect(username).toEqual('Hello, alice!');
   });
 });
@@ -113,6 +108,7 @@ Our protractor config:
 
 ```javascript
   exports.config = {
+    rootElement: '[ng-app]',
     seleniumAddress: 'http://localhost:4444/wd/hub'
   }
 ```
@@ -120,11 +116,12 @@ Our protractor config:
 We'll configure our protractor task as follows:
 
 ```javascript
-  gulp.task('protractor', rg.protractor({
-    files: [
-      'client/testing/scenarios/*.scenario.js'
-    ]
-  }));
+  gulp.task('protractor', function() {
+    return gulp.src(['client/testing/scenarios/*.scenario.js'])
+      .pipe(protractor({
+        configFile: 'protractor.conf.js'
+      }));
+  });
 ```
 
 Now we can run our test:
@@ -135,22 +132,11 @@ Now we can run our test:
 
 ## Running Protractor Interactively
 
+Running `protractor` interactively will allow you to run commands from your
+terminal without having to run a test suite.
+
 ```bash
-  node node_modules/rangle-gulp/node_modules/gulp-protractor/node_modules/protractor/bin/elementexplorer.js http://localhost:8080/
-```
-
-## Debugging
-
-Add this to the test code:
-
-```javascript
-  browser.debugger();
-```
-
-In the console:
-
-```javascript
-  window.clientSideScripts.findByModel('login.Username');
+  protractor --elementExplorer
 ```
 
 ## More Locators
@@ -178,6 +164,6 @@ You can find more detailed API documentation for protractor
 
 Also note that protractor doesn't use our classic mocha/chai/sinon combo.
 
-Instead, it uses the older framework, Jasmine, which provides similar but
+Instead, it uses another framework, Jasmine, which provides similar but
 slightly different syntax (see
 [here](http://jasmine.github.io/2.0/introduction.html))

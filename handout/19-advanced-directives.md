@@ -1,4 +1,4 @@
-# Part 23: Advanced Directives
+# Part 19: Advanced Directives
 
 ## Using the Link Function
 
@@ -22,7 +22,7 @@ defines a controller or a service.
   )
 ```
 
-There is an important caveat with the link function, however. 
+There is an important caveat with the link function, however.
 This function does not do dependency injection. Instead, its arguments get
 passed to it by position:
 
@@ -79,16 +79,18 @@ We can achieve this by providing a compile function which will handle the
 cloning:
 
 ```javascript
-  directive.compile = function (tElement, tAttrs) {
+  directive.compile = function (elem, attrs) {
     var wrapper = angular.element('<div></div>');
-    for (var i=0; i<tAttrs.repeat; i++) {
-      wrapper.append(tElement.clone());
+
+    for (var i=0; i < attrs.repeat; i++) {
+      wrapper.append(elem.clone());
     }
-    tElement.replaceWith(wrapper);
+    elem.replaceWith(wrapper);
+
     return function (scope, iElement, iAttrs) {
-      ...
-      };
+    ...
     };
+  };
 ```
 
 ## Using controller vs. link vs. compile Functions
@@ -99,7 +101,7 @@ directive implementation as opposed to `link()` or `compile()` functions.
 The main reasons behind this rationale is that controllers allow you to provide
 a named scope for your directives using the controllerAs syntax, are easier to
 unit test and conform to existing development practices established in earlier
-chapters. 
+chapters.
 
 ## Providing Custom Validation
 
@@ -137,17 +139,17 @@ parameter to our link function.
 We can use this parameter to add to ngModel's list of `$validators` for any
 HTML element we use this directive on.
 
-Make the following change to your index.html:
+Make the following change to your `client/app/components/main/main.html`:
 
 ```html
 Enter username: <input
   ng-model="loginForm.username"
   name="username"
-  input-white-list white-list="['alice', 'bob', 'dan']"><br>
+  input-white-list white-list="['alice', 'bob', 'dan']"><br />
 
 <span ng-show="loginForm.form.username.$error.whiteList">
   Username must be one of 'alice', 'bob', or 'dan'.
-</span><br>
+</span><br />
 ```
 
 We now have a custom validator that checks that the input matches a white list

@@ -23,15 +23,6 @@ angular.module('ngcourse.tasks', [])
       });
   };
 
-  service.getMyTasks = function () {
-    return service.getTasks()
-      .then(function(tasks) {
-        return filterTasks(tasks, {
-          owner: user.username
-        });
-      });
-  };
-
   return service;
 });
 ```
@@ -39,7 +30,7 @@ angular.module('ngcourse.tasks', [])
 Note we have added a new module definition and need to update app.js.
 
 ```javascript
-angular.module('ngcourse', ['ngcourse.tasks', 'ngcourse.server'])
+angular.module('ngcourse', ['ngcourse.tasks'])
 ```
 
 Let's put this in `client/app/core/tasks/tasks-service.js` and add the path
@@ -48,7 +39,7 @@ our `index.html`.
 We can now simplify our controller code:
 
 ```javascript
-  .controller('TaskListCtrl', function($http, $log, tasks) {
+  .controller('TaskListCtrl', function($log, tasks) {
     var vm = this;
     vm.tasks = [];
 
@@ -109,9 +100,12 @@ code from our `tasks` service into a new `server` service (app/core/server/serve
 While our `tasks` service code gets simplified to:
 
 ```javascript
-  service.getTasks = function () {
-    return server.get('/tasks');
-  };
+  .factory('tasks', function (server) {
+    ...
+    service.getTasks = function () {
+      return server.get('/tasks');
+    };
+  });
 ```
 
 And we have a layered service architecture with the tasks service calling the server service.

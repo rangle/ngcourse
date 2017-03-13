@@ -15,10 +15,9 @@ Make sure your index.html only has ui-view in it. It should look something like 
       <div ui-view></div>
     </div>
     ...
-    <script src="/node_modules/lodash/dist/lodash.js"></script>
 ```
 
-Let's add a basic login UI to this course.  Create a `main.html` at `app/components/main/main.html` with the following markup:
+Let's modify our previous login UI with the below markup and add it into the `main.html` at `app/components/main/main.html`:
 
 ```html
 <div>
@@ -41,34 +40,42 @@ Let's add a basic login UI to this course.  Create a `main.html` at `app/compone
       required>
     <br>
 
-    <button
+    <p ng-show="main.loginError" style="color:red">{{main.loginError}}</p>
+
+    <button id="login-button"
       ng-click="main.login(loginForm.username, loginForm.password)"
       ng-disabled="loginForm.form.$invalid">Login</button>
+      
+      <p class="small">
+        Demo accounts:<br/>
+        ed / edpassword <br/> bob / bobpassword<br/>
+      </p>
   </form>
 </div>
 ```
 
-Also, to prepare for sharing information across services, lets update our user service in `client/app/core/users/users-service.js`:
+Also, to prepare for sharing information across services, lets create our user service in `client/app/core/users/users-service.js`:
 
-```
+```javascript
 angular.module('ngcourse.users', [])
 
 .factory('users', function () {
-  var service={};
+  var service = {};
 
-  service.username= null;
-  service.password= null;
-  service.login= function(name, password){
-    service.username=name;
-    service.password=password;
+  service.username = null;
+  service.password = null;
+  service.login = function(username, password){
+    service.username = username;
+    service.password = password;
   };
+
   return service;
 });
 ```
 
 and our app.js:
 
-```
+```javascript
 angular.module('ngcourse', [
   'ngcourse.tasks',
   'ngcourse.server',
@@ -82,7 +89,7 @@ angular.module('ngcourse', [
 
 and update our router-service to load the main form. We are adding the .state 'home' and changing .otherwise to '/':
 
-```
+```javascript
     $urlRouterProvider.otherwise('/');
 
     $locationProvider.html5Mode(false);
@@ -102,18 +109,55 @@ and update our router-service to load the main form. We are adding the .state 'h
 
 with the rest of the file remaining the same.
 
-Finally, let's update our login function in our MainCtrl to transition our state by adding $stage.go('tasks'):
+Finally, let's update our login function in our UserService to return a promise which will either be resolved with a valid user, or rejected with an error message:
 
-```
-    vm.login = function(username, password) {
-      vm.isAuthenticated = true;
-      vm.username = username;
-      vm.password=password;
-      $state.go('tasks');
-    };
+```javascript
+  
+  service.login = function (username, password) {
+    return service.getUser(username).then(function (loggedInUser) {
+      if (loggedInUser && loggedInUser.password === password) {
+        service.username = username;
+        service.password = password;
+        return loggedInUser;
+      } else {
+        service.username = null;
+        service.password = null;
+        return $q.reject('Invalid login credentials');
+      }
+    })
+  };
 ```
 
-Don't forget to inject $state into the controller.
+Let's also add the getUser function into the UserService. 
+
+```javascript
+
+  service.getUser = function (username) {
+    return server.get('/users?username=' + username)
+      .then(function (users) {
+        return users[0]; // json-server always returns an array here
+      });
+  };
+```
+
+Don't forget to inject `$q` into the UserService.
+
+Next, in our MainCtrl,  we will transition our state by adding $stage.go('tasks') on successful login, otherwise display an error message on failed login:
+
+```javascript
+  vm.login = function (username, password) {
+    user.login(username, password)
+      .then(function () {
+        vm.loginError = null;
+        $state.go('tasks');
+      })
+      .catch(function (err) {
+        vm.loginError = err;
+      })
+  }
+```
+
+Don't forget to inject $state into the controller and to add the `users-service.js` into your index.html.
 
 ## Disabling Login for Missing Data
 
