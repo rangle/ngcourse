@@ -60,7 +60,7 @@ describe('TaskAddCtrl', function() {
 
   beforeEach(inject(function($controller, $log) {
     mockTasks = {
-      addTask: sinon.spy(function() {
+      createTask: sinon.spy(function() {
         return Q.when();
       })
     };
@@ -89,7 +89,7 @@ describe('TaskAddCtrl', function() {
 
     return taskAddController.save(newTask)
       .then(function() {
-        mockTasks.addTask.should.have.been.calledOnce;
+        mockTasks.createTask.should.have.been.calledOnce;
         mockRouter.goToTaskList.should.have.been.calledOnce;
       });
   })
@@ -256,7 +256,6 @@ var karmaFiles = [
   'client/node_modules/angular/angular.js',
   'client/node_modules/angular-mocks/angular-mocks.js',
   'client/node_modules/sinon-chai/lib/sinon-chai.js',
-  'client/node_modules/koast-angular/dist/koast.js',
   'client/node_modules/angular-ui-router/release/angular-ui-router.js',
   'client/testing/lib/q.js',
   'client/testing/test-utils.js',

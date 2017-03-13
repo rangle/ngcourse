@@ -7,7 +7,7 @@ describe('TaskAddCtrl', function () {
 
   beforeEach(inject(function ($controller, $log) {
     mockTasks = {
-      addTask: sinon.spy(function () {
+      createTask: sinon.spy(function () {
         return Q.when();
       })
     };
@@ -36,7 +36,7 @@ describe('TaskAddCtrl', function () {
 
     return taskAddController.save(newTask)
       .then(function () {
-        mockTasks.addTask.should.have.been.calledOnce;
+        mockTasks.createTask.should.have.been.calledOnce;
         mockRouter.goToTaskList.should.have.been.calledOnce;
       });
   })
