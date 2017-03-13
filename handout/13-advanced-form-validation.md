@@ -45,7 +45,7 @@ Let's modify our previous login UI with the below markup and add it into the `ma
     <button id="login-button"
       ng-click="main.login(loginForm.username, loginForm.password)"
       ng-disabled="loginForm.form.$invalid">Login</button>
-      
+
       <p class="small">
         Demo accounts:<br/>
         ed / edpassword <br/> bob / bobpassword<br/>
@@ -112,7 +112,7 @@ with the rest of the file remaining the same.
 Finally, let's update our login function in our UserService to return a promise which will either be resolved with a valid user, or rejected with an error message:
 
 ```javascript
-  
+
   service.login = function (username, password) {
     return service.getUser(username).then(function (loggedInUser) {
       if (loggedInUser && loggedInUser.password === password) {
@@ -128,7 +128,7 @@ Finally, let's update our login function in our UserService to return a promise 
   };
 ```
 
-Let's also add the getUser function into the UserService. 
+Let's also add the getUser function into the UserService.
 
 ```javascript
 
@@ -153,11 +153,11 @@ Next, in our MainCtrl,  we will transition our state by adding $stage.go('tasks'
       })
       .catch(function (err) {
         vm.loginError = err;
-      })
-  }
+      });
+  };
 ```
 
-Don't forget to inject $state into the controller and to add the `users-service.js` into your index.html.
+Don't forget to inject `$state` into the controller and to add the `users-service.js` into your index.html.
 
 ## Disabling Login for Missing Data
 

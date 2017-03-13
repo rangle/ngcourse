@@ -4,41 +4,6 @@ Angular is the leading open source JavaScript application framework backed by
 Google. This course ("ngCourse") provides an introduction to AngularJS based
 on our experience at [Rangle.io](http://rangle.io).
 
-## AngularJS, the Good Parts
-
-Douglas Crockford's seminal book
-_[JavaScript, The Good Parts](http://www.amazon.ca/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742)_
-has this to say about JavaScript:
-
-> Most languages contain good parts and bad parts. I discovered that I could
-> be a better programmer by using only the good parts and avoiding the bad
-> parts... JavaScript is a language with more than its share of bad parts.
-
-Crockford goes on to point out that JavaScript also has lots of _good_ parts which
-can make it a great language to use. The key is avoiding the bad parts.
-
-(Crockford's book should be required reading for all JavaScript developers. At
-Rangle.io, we keep a few extra copies on hand on the off-chance that one of our
-developers has not already read this great book.)
-
-What Crockford says about programming languages applies equally well to
-frameworks: most have good parts and bad parts. Our approach to AngularJS
-somewhat resembles Crockford's approach to JavaScript. AngularJS does not have
-nearly the same kind of warts as JavaScript, but it does have features that
-will help you shoot yourself in the foot, even as many of its other features
-help you build highly scalable software. This course aims to highlight "the
-good parts" and to show how you can use them to your advantage.
-
-We won't cover in depth in this course those parts of AngularJS that we avoid
-in our own use of the framework. In cases were such parts are widely used in
-the community, the course will mention them and explain why we believe their
-usage should be minimized.
-
-Despite this "picky" approach, however, we do think AngularJS offers great
-value. This is the framework we ourselves work with predominantly. Let's talk
-briefly about what are some of the things that make it great and some of the
-things we'll have to keep in mind.
-
 ## MVC and MVVM
 
 AngularJS is often described as an MVC ("Model-View-Controller") framework.
