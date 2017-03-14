@@ -352,7 +352,7 @@ put this in `main-controller.js`:
     $scope.isAuthenticated = false;
     ...
     $scope.messageChild = function() {
-      $scope.$broadcast('hello.child', {fruit: 'peaches'});
+      $scope.$broadcast('hello.child', {fruit: 'peaches '});
     };
     $scope.$on('hello.parent', function(event, payload) {
       $window.alert(payload.animal);
