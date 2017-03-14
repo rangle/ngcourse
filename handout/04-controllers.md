@@ -348,12 +348,15 @@ Let's use `$scope.$broadcast` to send a message *down* the scope system. We'll
 put this in `main-controller.js`:
 
 ```javascript
-  .controller('MainCtrl', function($scope, $log) {
+  .controller('MainCtrl', function($scope, $log, $window) {
     $scope.isAuthenticated = false;
     ...
     $scope.messageChild = function() {
-      $scope.$broadcast('hello.child', {fruit: 'peaches'});
+      $scope.$broadcast('hello.child', {fruit: 'peaches '});
     };
+    $scope.$on('hello.parent', function(event, payload) {
+      $window.alert(payload.animal);
+    });
     ...
   });
 ```
