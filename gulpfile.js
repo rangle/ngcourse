@@ -20,7 +20,6 @@ var karmaFiles = [
   'client/node_modules/angular-ui-router/release/angular-ui-router.js',
   'client/testing/lib/q.js',
   'client/testing/test-utils.js',
-  'client/node_modules/lodash/dist/lodash.js',
   'client/app/**/*.html',
   'client/app/**/*.js'
 ];
