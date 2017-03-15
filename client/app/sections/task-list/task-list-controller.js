@@ -13,7 +13,11 @@ angular.module('ngcourse')
         .then(null, $log.error);
 
       vm.numberOfTasks = 0;
+
       vm.addTask = function() {
-        vm.numberOfTasks += 1;
+        tasks.createTask({
+          owner: 'Alice',
+          description: 'A newly-created task.'
+        });
       };
     });

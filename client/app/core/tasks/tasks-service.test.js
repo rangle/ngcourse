@@ -21,6 +21,16 @@
                  // Promise.resolve();
           // or try this: Q.reject(new Error('Some Error'));
         };
+
+        service.post = function (path, task) {
+          if ( task === null ) {
+            return Q.reject(null);
+          }
+          else {
+            return Q.when(task);
+          }
+        };
+
         return service;
       });
       // Mock $q.
@@ -37,5 +47,49 @@
         // getTasks().
         expect(tasks.getTasks()).to.not.be.undefined;
       });
+    });
+
+    it('should add a new task', function () {
+      var tasks = getService('tasks');
+
+      var newTask = {
+        owner: 'Alice',
+        description: 'A newly-created task.'
+      };
+
+      return tasks.createTask(newTask)
+        .then(function (task) {
+          expect(task.owner).to.equal('Alice');
+          // We no longer need to call done()
+        });
+    });
+
+    it('should fail if task is null', function () {
+      var tasks = getService('tasks');
+
+      return tasks.createTask(null)
+        .then(function (task) {
+          expect(task).to.be(null);
+        })
+        .catch(function (task) {
+          expect(task).to.be.null;
+        })
+    });
+
+    it('should fail if owner is empty', function () {
+      var tasks = getService('tasks');
+
+      var newTask = {
+        owner: '',
+        description: 'A newly-created task.'
+      };
+
+      return tasks.createTask(newTask)
+        .then(function (task) {
+          expect(task).to.be(task);
+        })
+        .catch(function (task){
+          expect(task).to.be.null;
+        })
     });
   });
