@@ -9,7 +9,13 @@
   <div ng-app="ngcourse">
     <div ui-view></div>
     <hr>
-    <ngc-user name="'Bob'" repeat="3"></ngc-user>
+
+    <div ng-controller="MainCtrl as main">
+      <ngc-user
+        name="main.name"
+        repeat="3"
+        on-custom-event="main.handleCustomEvent(str)"></ngc-user>
+    </div>
   </div>
 
   <script src="/node_modules/angular/angular.js"></script>
