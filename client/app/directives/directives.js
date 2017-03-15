@@ -27,17 +27,17 @@ angular.module('ngcourse.directives', [])
       }, // vs 'true', 'null'
       transclude: true,
       templateUrl: '/app/directives/user.html',
-      // controller: 'directiveCtrl',
-      // controllerAs: 'dir',
-      // bindToController: true,
-      link: function (scope, element, attrs) {
-        scope.cost = 12;
+      controller: 'directiveCtrl',
+      controllerAs: 'dir',
+      bindToController: true,
+      // link: function (scope, element, attrs) {
+      //   scope.cost = 12;
 
-        tasks.getTasks()
-          .then(function(tasks) {
-            scope.tasksLength = tasks.length;
-          });
-      },
+      //   tasks.getTasks()
+      //     .then(function(tasks) {
+      //       scope.tasksLength = tasks.length;
+      //     });
+      // },
       compile: function (element, attrs) {
         var wrapper = angular.element('<div></div>');
 
