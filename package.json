@@ -30,6 +30,7 @@
     "karma-mocha": "~0.1.10",
     "karma-ng-html2js-preprocessor": "~0.1.2",
     "karma-sinon": "~1.0.4",
+    "karma-spec-reporter": "0.0.30",
     "mocha": "~2.1.0",
     "q": "^1.0.1",
     "rangle-gulp": "^0.1.3",

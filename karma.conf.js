@@ -7,7 +7,7 @@ module.exports = function(config) {
       '**/*.html': 'ng-html2js'
     },
     exclude: ['node_modules'],
-    reporters: ['progress'],
+    reporters: ['spec'],
     port: 9999,
     colors: true,
     logLevel: config.LOG_ERROR,
