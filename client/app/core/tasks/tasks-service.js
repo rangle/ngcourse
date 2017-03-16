@@ -1,20 +1,22 @@
 'use strict';
 
-angular.module('ngcourse.tasks', [])
-  .factory('tasks', function(server, $q) {
+angular.module('ngcourse.tasks', ['ngcourse.server'])
+  .factory('tasks', function (server) {
     var service = {};
-    var tasksPromise;
 
     service.getTasks = function () {
-      tasksPromise = tasksPromise || server.get('/tasks');
-      return tasksPromise;
+      return server.get('/tasks')
     };
 
-    service.createTask = function (task) {
-      if (!task || !task.owner) {
-        return $q.reject(null);
-      }
+    service.updateTask = function (task) {
+      return server.put('/tasks/', task.id, task);
+    }
 
+    service.getTask = function (id) {
+      return server.get('/tasks/' + id);
+    }
+
+    service.createTask = function (task) {
       return server.post('/tasks', task);
     }
 

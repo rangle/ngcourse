@@ -1,23 +1,15 @@
 'use strict';
 
 angular.module('ngcourse')
-  .controller('TaskListCtrl', function($log, tasks) {
-      var vm = this;
-      vm.tasks = [];
 
-      tasks.getTasks()
-        .then(function(tasks) {
-          vm.tasks = tasks;
-          vm.numberOfTasks = tasks.length;
-        })
-        .then(null, $log.error);
+  .controller('TaskListCtrl', function ($log, tasks, users, router) {
+    var vm = this;
+    vm.tasks = [];
+    vm.addTask = router.goToAddTask;
 
-      vm.numberOfTasks = 0;
-
-      vm.addTask = function() {
-        tasks.createTask({
-          owner: 'Alice',
-          description: 'A newly-created task.'
-        });
-      };
-    });
+    tasks.getTasks()
+      .then(function (tasks) {
+        vm.tasks = tasks;
+      })
+      .then(null, $log.error);
+  });

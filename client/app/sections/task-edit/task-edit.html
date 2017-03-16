@@ -1,0 +1,6 @@
+<form name="form" class="task">
+  <input ng-model="taskEdit.task.owner" placeholder="Owner" required ng-minlength="5" /> <br/>
+  <input ng-model="taskEdit.task.description" placeholder="Description" required ng-minlength="5" /> <br/>
+  <button ng-disabled="form.$invalid" ng-click="taskEdit.updateTask(taskEdit.task)">Update</button>
+  <button ng-click="taskEdit.cancel()">Cancel</button>
+</form>
