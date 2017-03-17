@@ -1,4 +1,4 @@
-# Part 19: Unit Testing Controllers and Directives
+# Part 18: Unit Testing Controllers and Directives
 
 In part 9, we talked about unit testing services.  Most of your code should live
 in services, in part because they are easy to unit test.
@@ -60,7 +60,7 @@ describe('TaskAddCtrl', function() {
 
   beforeEach(inject(function($controller, $log) {
     mockTasks = {
-      addTask: sinon.spy(function() {
+      createTask: sinon.spy(function() {
         return Q.when();
       })
     };
@@ -89,7 +89,7 @@ describe('TaskAddCtrl', function() {
 
     return taskAddController.save(newTask)
       .then(function() {
-        mockTasks.addTask.should.have.been.calledOnce;
+        mockTasks.createTask.should.have.been.calledOnce;
         mockRouter.goToTaskList.should.have.been.calledOnce;
       });
   })
@@ -253,14 +253,12 @@ editing `gulpfile.js`:
 // ...
 
 var karmaFiles = [
-  'client/bower_components/angular/angular.js',
-  'client/bower_components/angular-mocks/angular-mocks.js',
-  'client/bower_components/sinon-chai/lib/sinon-chai.js',
-  'client/bower_components/koast-angular/dist/koast.js',
-  'client/bower_components/angular-ui-router/release/angular-ui-router.js',
+  'client/node_modules/angular/angular.js',
+  'client/node_modules/angular-mocks/angular-mocks.js',
+  'client/node_modules/sinon-chai/lib/sinon-chai.js',
+  'client/node_modules/angular-ui-router/release/angular-ui-router.js',
   'client/testing/lib/q.js',
   'client/testing/test-utils.js',
-  'client/bower_components/lodash/dist/lodash.js',
   'client/app/**/*.html',
   'client/app/**/*.js'
 ];

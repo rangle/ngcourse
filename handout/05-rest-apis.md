@@ -205,6 +205,7 @@ Let's start by just getting a list of tasks:
       .error(function(data, status) {
         $log.error(status, data);
       });
+  });
 ```
 
 Here we are making an HTTP GET request and providing two callbacks: one to
@@ -230,6 +231,7 @@ We'll focus on a somewhat different different approach, though:
       .then(null, function(error) {
         $log.error(error);
       });
+  });
 ```
 
 This takes advantage of the fact that `$http.get()` returns an object that can

@@ -31,59 +31,33 @@ Let's modify our previous login UI with the below markup and add it into the `ma
       ng-model="loginForm.username"
       name="username"
       required>
-    <br>
+    <br />
 
     Password: <input
       type="password"
       ng-model="loginForm.password"
       name="password"
       required>
-    <br>
+    <br />
 
-    <button
+    <p ng-show="main.loginError" style="color:red">{{main.loginError}}</p>
+
+    <button id="login-button"
       ng-click="main.login(loginForm.username, loginForm.password)"
       ng-disabled="loginForm.form.$invalid">Login</button>
+
+      <p class="small">
+        Demo accounts:<br/>
+        ed / edpassword <br/> bob / bobpassword<br/>
+      </p>
   </form>
 </div>
-```
-
-Also, to prepare for sharing information across services, lets create our user service in `client/app/core/users/users-service.js`:
-
-```javascript
-angular.module('ngcourse.users', [])
-
-.factory('users', function () {
-  var service={};
-
-  service.username= null;
-  service.password= null;
-  service.login= function(name, password){
-    service.username=name;
-    service.password=password;
-  };
-  return service;
-});
-```
-
-and our app.js:
-
-```javascript
-angular.module('ngcourse', [
-  'ngcourse.tasks',
-  'ngcourse.server',
-  'ngcourse.router',
-  'ngcourse.users'
-])
-.run(function ($log) {
-  $log.info('Ready to go.');
-});
 ```
 
 and update our router-service to load the main form. We are adding the .state 'home' and changing .otherwise to '/':
 
 ```javascript
     $urlRouterProvider.otherwise('/');
-
     $locationProvider.html5Mode(false);
 
     $stateProvider
@@ -96,27 +70,15 @@ and update our router-service to load the main form. We are adding the .state 'h
         url: '/tasks',
         controller: 'TaskListCtrl as taskList',
         templateUrl: '/app/sections/task-list/task-list.html'
-    })
+    });
 ```
 
 with the rest of the file remaining the same.
 
-Finally, let's update our login function in our MainCtrl to transition our state by adding $stage.go('tasks'):
-
-```javascript
-    vm.login = function(username, password) {
-      vm.isAuthenticated = true;
-      vm.username = username;
-      vm.password=password;
-      $state.go('tasks');
-    };
-```
-
-Don't forget to inject $state into the controller and to add the `users-service.js` into your index.html.
-
 ## Disabling Login for Missing Data
 
 * We've converted the `<div>` to an HTML `<form>` with the `novalidate` attribute
+* `novalidate` will disable the default HTML5 validations
 * We've given the form a `name`; this causes Angular to begin tracking validation
 state for the form fields.
 * We've also named the input fields and marked them as `required`.
@@ -149,7 +111,7 @@ Enter username: <input
   ng-model="loginForm.username"
   name="username"
   ng-pattern="/^[a-z]+$/"
-  required><br>
+  required><br/>
 ```
 
 Node that we now have two validators on this field: `required` and `ng-pattern`.
@@ -158,18 +120,6 @@ If you need to know which one failed, you can do this:
 ```html
 <p>{{ loginForm.form.username.$error }}</p>
 ```
-
-## An Important Caveat
-
-Note that AngularJS is a client-side technology.  The client is an inherently
-untrusted environment: a malicious end user can bypass any of the input
-validation by messing around with the browser.
-
-This means that __login and data validation always needs to be enforced on
-the server side!__
-
-AngularJS's form features are there to give you the tools to make the end-user
-experience better, not to enforce security constraints.
 
 ## Providing UI Cues for Missing Data
 
@@ -219,3 +169,100 @@ Email: <input type="email" name="email" ng-model="loginForm.email">
   Please enter a valid email address.
 </span>
 ```
+
+## An Important Caveat
+
+Note that AngularJS is a client-side technology.  The client is an inherently
+untrusted environment: a malicious end user can bypass any of the input
+validation by messing around with the browser.
+
+This means that __login and data validation always needs to be enforced on
+the server side!__
+
+AngularJS's form features are there to give you the tools to make the end-user
+experience better, not to enforce security constraints.
+
+## Completing the User-service
+
+Let's prepare for sharing information across services, and create our user service in `client/app/core/users/users-service.js`:
+
+```javascript
+angular.module('ngcourse.users', [])
+
+.factory('users', function () {
+  var service = {};
+
+  service.username = null;
+  service.password = null;
+  service.login = function(username, password){
+    service.username = username;
+    service.password = password;
+  };
+
+  return service;
+});
+```
+
+and our app.js:
+
+```javascript
+angular.module('ngcourse', [
+  'ngcourse.tasks',
+  'ngcourse.server',
+  'ngcourse.router',
+  'ngcourse.users'
+])
+.run(function ($log) {
+  $log.info('Ready to go.');
+});
+```
+
+Finally, let's update our login function in our UserService to return a promise which will either be resolved with a valid user, or rejected with an error message:
+
+```javascript
+
+  service.login = function (username, password) {
+    return service.getUser(username).then(function (loggedInUser) {
+      if (loggedInUser && loggedInUser.password === password) {
+        service.username = username;
+        service.password = password;
+        return loggedInUser;
+      } else {
+        service.username = null;
+        service.password = null;
+        return $q.reject('Invalid login credentials');
+      }
+    })
+  };
+```
+
+Let's also add the getUser function into the UserService.
+
+```javascript
+
+  service.getUser = function (username) {
+    return server.get('/users?username=' + username)
+      .then(function (users) {
+        return users[0]; // json-server always returns an array here
+      });
+  };
+```
+
+Don't forget to inject `$q` into the UserService.
+
+Next, in our MainCtrl,  we will transition our state by adding $stage.go('tasks') on successful login, otherwise display an error message on failed login:
+
+```javascript
+  vm.login = function (username, password) {
+    user.login(username, password)
+      .then(function () {
+        vm.loginError = null;
+        $state.go('tasks');
+      })
+      .catch(function (err) {
+        vm.loginError = err;
+      });
+  };
+```
+
+Don't forget to inject `$state` into the controller and to add the `users-service.js` into your index.html.

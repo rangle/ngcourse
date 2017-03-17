@@ -3,32 +3,31 @@
     {
       "id": 1,
       "username": "ed",
-      "password": "edpassword",
-      "displayName": "Ed Beeblebrox"
+      "password": "edpassword"
     },
     {
       "id": 2,
       "username": "bob",
-      "password": "bobpassword",
-      "displayName": "Bob Beeblebrox"
+      "password": "bobpassword"
     },
     {
       "id": 3,
       "username": "user",
-      "password": "password",
-      "displayName": "User 1"
+      "password": "password"
     }
   ],
   "tasks": [
     {
-      "id": "1",
+      "id": "a031b3dae",
       "owner": "bob",
-      "description": "Get the Milk"
+      "description": "Get the Milk",
+      "done": false
     },
     {
-      "id": "2",
+      "id": "fd3ac25be",
       "owner": "ed",
-      "description": "Mow the Lawn"
+      "description": "Mow the Lawn",
+      "done": false
     }
   ]
 }
