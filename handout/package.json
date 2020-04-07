@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "highlight.js": "^8.1.0",
-    "marked": "^0.3.2",
+    "marked": "^0.8.0",
     "typogr": "^0.6.4"
   }
 }
